@@ -5,31 +5,63 @@
  */
 package modelo.dto;
 
+import java.util.Date;
+
 /**
  *
- * 
- * @author Morales
+ * @author Windows
  */
 public class CitaDTO {
-    public CitaDTO(){ }
-        public CitaDTO(int id ){
-       setId(id); 
-       
-        }
+    
     private int id;
+    private String fechacita;
+    private PacienteDTO id_paciente;
+    private MedicoDTO id_medico;
+    private boolean estatus;
 
-    /**
-     * @return the id
-     */
+    
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getFechacita() {
+        return fechacita;
+    }
+
+    public void setFechacita(String fechacita) {
+        this.fechacita = fechacita;
+    }
+
+    public PacienteDTO getId_paciente() {
+        return id_paciente;
+    }
+
+    public void setId_paciente(PacienteDTO id_paciente) {
+        this.id_paciente = id_paciente;
+    }
+
+    public MedicoDTO getId_medico() {
+        return id_medico;
+    }
+
+    public void setId_medico(MedicoDTO id_medico) {
+        this.id_medico = id_medico;
+    }
+
+    public boolean isEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(boolean estatus) {
+        this.estatus = estatus;
+    }
+
+    
+    
+
     
 }

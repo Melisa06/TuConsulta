@@ -10,12 +10,30 @@ package modelo.dto;
  * @author lupita
  */
 public class MedicoDTO {
+    
+    private int id;
+
+    
     private String nombre;
     private String apellido;
     private String curp;
     private PacienteDTO idPaciente;
     private boolean estatus;
 
+    public MedicoDTO(){}
+    
+    public MedicoDTO(int id){
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNombre() {
         return nombre;
     }
