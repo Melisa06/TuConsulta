@@ -70,8 +70,8 @@ public class CitaDAO implements ICita {
         if (result.next()) {
 
             cita.setId(result.getInt("id"));
-            //cita.setId_paciente(PacienteBussines.buscar(result.getInt("id_paciente")));
-            //cita.setId_medico(MedicoBussines.buscar(result.getInt("id_medico")));
+            cita.setId_paciente(PacienteBussines.buscar(result.getInt("id_paciente")));
+            cita.setId_medico(MedicoBussines.buscar(result.getInt("id_medico")));
             cita.setFechacita(result.getString("fechacita"));
             cita.setEstatus(result.getBoolean("estatus"));
 
@@ -98,8 +98,8 @@ public class CitaDAO implements ICita {
 
             dto.setId(result.getInt("id"));
             dto.setFechacita(result.getString("fechacita"));
-            //dto.getId_paciente(PacienteBussines.buscar(result.getInt("id_paciente")));
-            //dto.getId_medico(MedicoBussines.buscar(result.getInt("id_medico")))
+            dto.getId_paciente(PacienteBussines.buscar(result.getInt("id_paciente")));
+            dto.getId_medico(MedicoBussines.buscar(result.getInt("id_medico")))
            
 
             ids.add(dto);

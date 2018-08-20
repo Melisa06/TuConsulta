@@ -133,11 +133,8 @@ public class UsuarioDAO implements IUsuario{
             usuario.setEstatus(rs.getBoolean("estatus"));
             return usuario;
         }
-        else{
-            return null;
-            //throw new Exception("No existe");
-        }
-            
+        else
+            throw new Exception("No existe");
     }
 
 }
