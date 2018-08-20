@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package modelo.negocio;
-
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,12 +39,12 @@ public class MedicamentoBussines {
     }
 
     public static MedicamentoDTO crear(String nombreM, String descripcion, int stock, float precio  ,boolean estatus) {
-   MedicamentoDTO u = new MedicamentoDTO();
+            MedicamentoDTO u = new MedicamentoDTO();
             MedicamentoDAO dao = new MedicamentoDAO();                    
             u.setNombreMedicamento(nombreM);
             u.setDescripcion(descripcion);
-//            u.setFechaActualizacion(fechaActualizacion);
-//            u.setImagen(imagen);
+//          u.setFechaActualizacion(fechaActualizacion);
+//          u.setImagen(imagen);
             u.setEstatus(estatus);
             u.setPrecio(precio);
             u.setStock(stock);

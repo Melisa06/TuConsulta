@@ -14,6 +14,14 @@ import java.util.Date;
  */
 public class MedicamentoDTO {
 
+    public MedicamentoDTO(int id){
+        this.id = id;
+    }
+
+    public MedicamentoDTO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public int getId() {
         return id;
     }
