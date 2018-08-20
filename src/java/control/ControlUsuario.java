@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.dto.PermisoDTO;
 import modelo.dto.RolDTO;
 import modelo.dto.UsuarioDTO;
 import modelo.negocio.PermisoBusiness;
@@ -18,7 +19,7 @@ import modelo.negocio.UsuarioBusiness;
  *
  * @author Ricardo Camacho
  */
-@WebServlet(name = "ControlUsuario", urlPatterns = {"/login", "/validar", "/crearUsuario", "/paciente", "/medico", "/admin"})
+@WebServlet(name = "ControlUsuario", urlPatterns = {"/login", "/validar", "/crearUsuario", "/paciente", "/medico", "/admin", "/inicio"})
 public class ControlUsuario extends HttpServlet {
 
     String url;
@@ -27,11 +28,25 @@ public class ControlUsuario extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         url = request.getServletPath();
-
+        HttpSession sesion;
         switch(url){
             case "/login":
+                sesion = request.getSession();
+                if(sesion.getAttribute("datos") != null){
+                    PermisoDTO datos = (PermisoDTO) sesion.getAttribute("datos");
+                    if(datos.getIdRol().getNombreRol().equals("admin"))
+                        response.sendRedirect("admin");
+
+                    else if(datos.getIdRol().getNombreRol().equals("médico"))
+                        response.sendRedirect("medico");
+
+                    else if(datos.getIdRol().getNombreRol().equals("paciente"))
+                        response.sendRedirect("paciente");
+                }
+                else{
                 request.setAttribute("error", "none");
                 request.getRequestDispatcher("WEB-INF/usuarios/login.jsp").forward(request, response);
+                }
                 break;
             
             case "/crearUsuario":
@@ -50,6 +65,21 @@ public class ControlUsuario extends HttpServlet {
                 
             case "/admin":
                 request.getRequestDispatcher("WEB-INF/usuarios/indexAdmin.jsp").forward(request, response);
+                break;
+                
+            case "/inicio":
+                sesion = request.getSession();
+                if(sesion.getAttribute("datos") != null){
+                    PermisoDTO datos = (PermisoDTO) sesion.getAttribute("datos");
+                    if(datos.getIdRol().getNombreRol().equals("admin"))
+                        response.sendRedirect("admin");
+
+                    else if(datos.getIdRol().getNombreRol().equals("médico"))
+                        response.sendRedirect("medico");
+
+                    else if(datos.getIdRol().getNombreRol().equals("paciente"))
+                        response.sendRedirect("paciente");
+                    }
                 break;
         }
         
@@ -90,7 +120,6 @@ public class ControlUsuario extends HttpServlet {
                         dto.setIdPermiso(PermisoBusiness.buscar(dto.getId()));
                         
                         HttpSession sesion = request.getSession(true);
-                        
                         sesion.setAttribute("datos", dto.getIdPermiso());
                         
                         switch (dto.getIdPermiso().getIdRol().getId()) {
