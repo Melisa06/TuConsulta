@@ -45,7 +45,7 @@ import sun.misc.BASE64Decoder;
  *
  * @author Jhazmin Alvarez
  */
-@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento"})
+@WebServlet(name = "controlMedicamento", urlPatterns = {"/productos", "/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento"})
 public class controlMedicamento extends HttpServlet {
 
     @Override
@@ -67,7 +67,7 @@ public class controlMedicamento extends HttpServlet {
             request.setAttribute("accion", "nuevo_medicamento");
              request.setAttribute("textoboton", "Guardar");
              request.setAttribute("oculto", "visibility:hidden");
-            request.getRequestDispatcher("/WEB-INF/folder/frmMedicamento.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/productos/createProducto.jsp").forward(request, response);
            
         } else if (url.equals("/borrar_medicamento")) {
             int m =Integer.parseInt(request.getParameter("n"));
@@ -88,6 +88,9 @@ public class controlMedicamento extends HttpServlet {
 
             request.setAttribute("textoboton", "Actualizar");
             request.getRequestDispatcher("/WEB-INF/folder/frmMedicamento.jsp").forward(request, response);
+        }
+        else if(url.equals("/productos")){
+            request.getRequestDispatcher("/WEB-INF/productos/listProducto.jsp").forward(request, response);
         }
     }
 

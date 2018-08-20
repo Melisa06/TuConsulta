@@ -16,5 +16,4 @@
         <link href="public/css/site.css" rel="stylesheet">
         
     </head>
-    
     <body>

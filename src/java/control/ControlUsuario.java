@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.dto.RolDTO;
 import modelo.dto.UsuarioDTO;
 import modelo.negocio.PermisoBusiness;
@@ -87,6 +88,10 @@ public class ControlUsuario extends HttpServlet {
 
                     if(dto.getPassword().equals(UsuarioBusiness.getMD5(password))){
                         dto.setIdPermiso(PermisoBusiness.buscar(dto.getId()));
+                        
+                        HttpSession sesion = request.getSession(true);
+                        
+                        sesion.setAttribute("datos", dto.getIdPermiso());
                         
                         switch (dto.getIdPermiso().getIdRol().getId()) {
                             case 1:
