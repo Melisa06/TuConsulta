@@ -5,13 +5,22 @@
  */
 package control;
 
+import modelo.negocio.CitaBussines;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.dto.CitaDTO;
+import modelo.dto.MedicoDTO;
+import modelo.dto.PacienteDTO;
+import modelo.dto.RecetaDTO;
+import usuario.negocio.RecetaBussines;
 
 /**
  *
@@ -29,14 +38,20 @@ public class controlConsultas extends HttpServlet {
         
         switch(url){
             case "/consultas":
+                List<CitaDTO> citas = CitaBussines.buscar();
+                request.setAttribute("citas", citas);
                 request.getRequestDispatcher("WEB-INF/consultas/listConsulta.jsp").forward(request, response);
                 break;
             
             case "/detalleConsulta":
+                RecetaDTO rct = RecetaBussines.buscar(id);
+                request.setAttribute("receta", rct);
+                
                 request.getRequestDispatcher("WEB-INF/consultas/detailsConsulta.jsp").forward(request, response);
                 break;
                 
             case "/nuevaConsulta":
+                
                 request.getRequestDispatcher("WEB-INF/consultas/createConsulta.jsp").forward(request, response);
                 break;
         }
@@ -45,6 +60,27 @@ public class controlConsultas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int id,id_paciente,id_medico;
+        String fechacita,hr_cita,estatus;
+        //boleean estatus;
+        
+        String url = request.getServletPath();
+
+        if (url.equals("/nueva_consulta")){
+            
+            id = request.getIntHeader("txtId");
+            fechacita = request.getParameter("txtFechacita");
+            hr_cita = request.getParameter("txtHr_cita");
+            estatus = request.getParameter("estatus");
+            try {
+                CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id), new MedicoDTO(id), Boolean.TRUE);
+            } catch (SQLException ex) {
+                Logger.getLogger(controlConsultas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
     }
 
     @Override
