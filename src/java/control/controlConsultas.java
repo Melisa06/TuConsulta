@@ -43,12 +43,6 @@ public class controlConsultas extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/consultas/listConsulta.jsp").forward(request, response);
                 break;
             
-            case "/detalleConsulta":
-                RecetaDTO rct = RecetaBussines.buscar(id);
-                request.setAttribute("receta", rct);
-                
-                request.getRequestDispatcher("WEB-INF/consultas/detailsConsulta.jsp").forward(request, response);
-                break;
                 
             case "/nuevaConsulta":
                 
@@ -62,8 +56,8 @@ public class controlConsultas extends HttpServlet {
             throws ServletException, IOException {
         
         int id,id_paciente,id_medico;
-        String fechacita,hr_cita,estatus;
-        //boleean estatus;
+        String fechacita,hr_cita;
+        boolean estatus;
         
         String url = request.getServletPath();
 
@@ -72,7 +66,7 @@ public class controlConsultas extends HttpServlet {
             id = request.getIntHeader("txtId");
             fechacita = request.getParameter("txtFechacita");
             hr_cita = request.getParameter("txtHr_cita");
-            estatus = request.getParameter("estatus");
+            estatus = true;
             try {
                 CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id), new MedicoDTO(id), Boolean.TRUE);
             } catch (SQLException ex) {
