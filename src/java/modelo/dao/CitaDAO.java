@@ -13,9 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.dto.CitaDTO;
+import modelo.dto.MedicoDTO;
+import modelo.dto.PacienteDTO;
 import modelo.interfaz.ICita;
-import modelo.negocio.MedicoBussines;
-import negocio.PacienteBussines;
 
 /**
  *
@@ -36,13 +36,15 @@ public class CitaDAO implements ICita {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
 
-        pst = con.prepareStatement("INSERT INTO cita (id,fechacita,id_paciente,id_medico,estatus values (?,?,?,?,?))");
+        
+        
+        pst = con.prepareStatement("INSERT INTO cita (fechacita,hr_cita,id_paciente,id_medico,estatus) values ('?',?,?,?,?)");
 
-        pst.setInt(1, cita.getId());
-        pst.setString(2, cita.getFechacita());
-        pst.setInt(2, cita.getId_paciente().getId());
-        pst.setInt(3, cita.getId_medico().getId());
-        pst.setBoolean(4, cita.isEstatus());
+        pst.setString(1, cita.getFechacita());
+        pst.setString(2, cita.getHr_cita());
+        pst.setInt(3, cita.getId_paciente().getId_paciente());
+        pst.setInt(4, cita.getId_medico().getId_medico());
+        pst.setBoolean(5, cita.isEstatus());
 
         int result = pst.executeUpdate();
 
@@ -61,7 +63,7 @@ public class CitaDAO implements ICita {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
 
-        pst = con.prepareStatement("select id,fechacita,id_paciente,id_medico,estatus" + "From cita Where id like ?");
+        pst = con.prepareStatement("select id,fechacita,hr_cita,id_paciente,id_medico,estatus" + "From cita Where id like ?");
 
         pst.setInt(1, cita.getId());
 
@@ -70,9 +72,10 @@ public class CitaDAO implements ICita {
         if (result.next()) {
 
             cita.setId(result.getInt("id"));
-            //cita.setId_paciente(PacienteBussines.buscar(result.getInt("id_paciente")));
-            //cita.setId_medico(MedicoBussines.buscar(result.getInt("id_medico")));
             cita.setFechacita(result.getString("fechacita"));
+            cita.setHr_cita(result.getString("hr_cita"));
+            cita.setId_paciente(new PacienteDTO(result.getInt("id_paciente")));
+            cita.setId_medico(new MedicoDTO(result.getInt("id_medico")));
             cita.setEstatus(result.getBoolean("estatus"));
 
             return cita;
@@ -82,13 +85,14 @@ public class CitaDAO implements ICita {
 
     }
 
-    public List<CitaDTO> read() throws SQLException {
+    public List<CitaDTO> read() throws Exception {
 
+        Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
 
-        List<CitaDTO> ids = new ArrayList<>();
+        List<CitaDTO> ids = new ArrayList<CitaDTO>();
 
-        pst = con.prepareStatement("select id,fechacita,id_paciente,id_medico" + "From cita");
+        pst = con.prepareStatement("select id,fechacita,hr_cita,id_paciente,id_medico,estatus " + "From cita");
 
         ResultSet result = pst.executeQuery();
 
@@ -98,8 +102,11 @@ public class CitaDAO implements ICita {
 
             dto.setId(result.getInt("id"));
             dto.setFechacita(result.getString("fechacita"));
-            //dto.getId_paciente(PacienteBussines.buscar(result.getInt("id_paciente")));
-            //dto.getId_medico(MedicoBussines.buscar(result.getInt("id_medico")))
+            dto.setHr_cita(result.getString("hr_cita"));
+            dto.setId_paciente(new PacienteDTO(result.getInt("id_paciente")));
+            dto.setId_medico(new MedicoDTO(result.getInt("id_medico")));
+            dto.setEstatus(result.getBoolean("estatus"));
+            
            
 
             ids.add(dto);
@@ -115,12 +122,13 @@ public class CitaDAO implements ICita {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
 
-        pst = con.prepareStatement("UPDATE cita set fechacita = (?) ,id_medico = ?,estatus = ? WHERE id like ?");
+        pst = con.prepareStatement("UPDATE cita set fechacita = (?),hr_cita = ? ,id_medico = ?,estatus = ? WHERE id like ?");
 
-        pst.setString(2, cita.getFechacita());
-        pst.setInt(3, cita.getId_medico().getId());
+        pst.setString(1, cita.getFechacita());
+        pst.setString(2, cita.getHr_cita());
+        pst.setInt(3, cita.getId_medico().getId_medico());
         pst.setBoolean(4, cita.isEstatus());
-        pst.setInt(1, cita.getId());
+        pst.setInt(5, cita.getId());
 
         int result = pst.executeUpdate();
 
@@ -153,4 +161,3 @@ public class CitaDAO implements ICita {
     }
 
 }
-//duda en read ya que en el bussines solo ocupa el id y el query ocupa todos los datos
