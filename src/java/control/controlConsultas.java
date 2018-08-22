@@ -26,7 +26,7 @@ import usuario.negocio.RecetaBussines;
  *
  * @author Ricardo Camacho
  */
-@WebServlet(name = "controlConsultas", urlPatterns = {"/controlConsultas", "/consultas", "/detalleConsulta", "/nuevaConsulta"})
+@WebServlet(name = "controlConsultas", urlPatterns = {"/controlConsultas", "/consultas", "/nuevaConsulta"})
 public class controlConsultas extends HttpServlet {
 
     String url;
@@ -61,7 +61,7 @@ public class controlConsultas extends HttpServlet {
         
         String url = request.getServletPath();
 
-        if (url.equals("/nueva_consulta")){
+        if (url.equals("/nuevaConsulta")){
             
             id = request.getIntHeader("txtId");
             fechacita = request.getParameter("txtFechacita");
