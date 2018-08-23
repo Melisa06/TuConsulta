@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package negocio;
+package modelo.negocio;
 import java.sql.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import modelo.dao.PacienteDAO;
 import modelo.dto.PacienteDTO;
 import modelo.dto.UsuarioDTO;
+import modelo.dao.UsuarioDAO; 
 
 /**
  *
@@ -28,7 +29,7 @@ public class PacienteBussines {
     }
     
     public PacienteDTO crear(String nombrePaciente, String apellidoPaterno, String apellidoMaterno, Date fechNac , Double peso , 
-            String alergias, double estatura , String telPaciente, Boolean estatus){
+            String alergias, double estatura , String telPaciente,UsuarioDTO usuario  , Boolean estatus){
         this.paciente.setNombrePaciente(nombrePaciente);
         this.paciente.setApellidoPaterno(apellidoPaterno);
         this.paciente.setApellidoMaterno(apellidoMaterno);
@@ -37,6 +38,7 @@ public class PacienteBussines {
         this.paciente.setAlergias(alergias);
         this.paciente.setEstatura(estatura);
         this.paciente.setTelPaciente(telPaciente);
+        this.paciente.setIdUsuarioDTO(usuario);
         this.paciente.setEstatus(estatus);
         
         try {

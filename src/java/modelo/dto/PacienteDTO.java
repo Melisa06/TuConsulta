@@ -6,6 +6,7 @@
 package modelo.dto;
 
 import java.sql.Date;
+import modelo.dto.UsuarioDTO; 
 /**
  *
  * @author Meli
@@ -71,7 +72,7 @@ public class PacienteDTO {
         this.id = id;
     }
     
-    public PacienteDTO(int id, String nombrePaciente, String apellidoPaterno,String apellidoMaterno, Date fechNac,double peso, String alergias,double estatura , String telPaciente, boolean  estatus){
+    public PacienteDTO(int id, String nombrePaciente, String apellidoPaterno,String apellidoMaterno, Date fechNac,double peso, String alergias,double estatura , String telPaciente, UsuarioDTO id_us, boolean  estatus){
     
         this.id = id; 
         this.nombrePaciente = nombrePaciente; 
@@ -81,6 +82,7 @@ public class PacienteDTO {
         this.peso = peso ; 
         this.alergias = alergias;
         this.estatura = estatura; 
+        this.idUsuarioDTO = id_us; 
         this.telPaciente = telPaciente; 
         this.estatus = estatus;    
     }
