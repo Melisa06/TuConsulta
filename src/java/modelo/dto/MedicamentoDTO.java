@@ -18,9 +18,7 @@ public class MedicamentoDTO {
         this.id = id;
     }
 
-    public MedicamentoDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public MedicamentoDTO() {}
     
     public int getId() {
         return id;

@@ -7,7 +7,6 @@ package control;
 
 import modelo.negocio.CitaBussines;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,15 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.dto.CitaDTO;
 import modelo.dto.MedicoDTO;
 import modelo.dto.PacienteDTO;
-import modelo.dto.RecetaDTO;
-import usuario.negocio.RecetaBussines;
 
 /**
  *
  * @author Ricardo Camacho
  */
-@WebServlet(name = "controlConsultas", urlPatterns = {"/controlConsultas", "/consultas", "/nuevaConsulta"})
-public class controlConsultas extends HttpServlet {
+@WebServlet(name = "controlCitas", urlPatterns = {"/controlCitas", "/citas", "/detalleCita", "/nuevaCita"})
+public class controlCitas extends HttpServlet {
 
     String url;
     
@@ -37,16 +34,18 @@ public class controlConsultas extends HttpServlet {
         url = request.getServletPath();
         
         switch(url){
-            case "/consultas":
+            case "/citas":
                 List<CitaDTO> citas = CitaBussines.buscar();
                 request.setAttribute("citas", citas);
-                request.getRequestDispatcher("WEB-INF/consultas/listConsulta.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/citas/listCita.jsp").forward(request, response);
                 break;
             
+            case "/detalleCita":
+                request.getRequestDispatcher("WEB-INF/citas/detailsCita.jsp").forward(request, response);
+                break;
                 
-            case "/nuevaConsulta":
-                
-                request.getRequestDispatcher("WEB-INF/consultas/createConsulta.jsp").forward(request, response);
+            case "/nuevaCita":
+                request.getRequestDispatcher("WEB-INF/citas/createCita.jsp").forward(request, response);
                 break;
         }
     }
@@ -54,27 +53,25 @@ public class controlConsultas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        url = request.getServletPath();
         
         int id,id_paciente,id_medico;
         String fechacita,hr_cita;
         boolean estatus;
         
-        String url = request.getServletPath();
-
-        if (url.equals("/nuevaConsulta")){
-            
-            id = request.getIntHeader("txtId");
-            fechacita = request.getParameter("txtFechacita");
-            hr_cita = request.getParameter("txtHr_cita");
-            estatus = true;
-            try {
-                CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id), new MedicoDTO(id), Boolean.TRUE);
-            } catch (SQLException ex) {
-                Logger.getLogger(controlConsultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+        switch(url){
+            case "/nuevaConsulta":
+                 id = request.getIntHeader("txtId");
+                fechacita = request.getParameter("txtFechacita");
+                hr_cita = request.getParameter("txtHr_cita");
+                estatus = true;
+                try {
+                    CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id), new MedicoDTO(id), Boolean.TRUE);
+                } catch (Exception ex) {
+                    Logger.getLogger(controlCitas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
         }
-        
     }
 
     @Override

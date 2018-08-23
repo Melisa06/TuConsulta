@@ -6,7 +6,6 @@
 package modelo.dto;
 
 import java.sql.Date;
-import modelo.dto.UsuarioDTO; 
 /**
  *
  * @author Meli

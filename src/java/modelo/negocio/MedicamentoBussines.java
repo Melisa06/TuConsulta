@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package modelo.negocio;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,9 +18,8 @@ import modelo.dto.MedicamentoDTO;
 public class MedicamentoBussines {
      public static List<MedicamentoDTO> buscar(){
     
-            List<MedicamentoDTO> u ;
+             List<MedicamentoDTO> u = new ArrayList<>();
             MedicamentoDAO dao = new MedicamentoDAO();
-            
             try {
               
                 u = dao.read();

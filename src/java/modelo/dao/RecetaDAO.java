@@ -19,7 +19,7 @@ import modelo.interfaz.Ireceta;
  */
 public class RecetaDAO implements Ireceta {
        
-    String URL = "jdbc:postgresql://localhost:5432/receta";
+    String URL = "jdbc:postgresql://localhost:5432/TuConsulta";
     String USER = "postgres";
     String PASSWORD = "admin";
     

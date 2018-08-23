@@ -42,7 +42,6 @@
                 <h2 class="section-heading mb-4"><a href="#">Iniciar sesion</a></h2>
                 <br>
                 <input type="hidden" class="" name="txtEmail" value="${email}">
-                <br>  
                 <input type="password" class="form-control" name="txtPassword" placeholder="contraseña" value="">
                 <br>
                 <div class="alert alert-danger" style="display: ${error};">

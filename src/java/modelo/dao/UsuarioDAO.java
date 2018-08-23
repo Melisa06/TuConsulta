@@ -10,6 +10,7 @@ import java.util.List;
 
 import modelo.dto.UsuarioDTO;
 import modelo.interfaz.IUsuario;
+import modelo.negocio.PermisoBusiness;
 /**
  *
  * @author Ricardo Camacho
@@ -27,17 +28,18 @@ public class UsuarioDAO implements IUsuario{
     public UsuarioDTO create(UsuarioDTO usuario) throws Exception {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        pst = con.prepareStatement("INSERT INTO Usuarios (email, password, fecha_ingreso, estatus) VALUES (?,MD5(?),NOW(),?)", Statement.RETURN_GENERATED_KEYS);
+        pst = con.prepareStatement("INSERT INTO Usuarios (email, password, fecha_ingreso, estatus) VALUES (?,MD5(?),NOW(),true)", Statement.RETURN_GENERATED_KEYS);
         pst.setString(1, usuario.getEmail());
         pst.setString(2, usuario.getPassword());
-        pst.setBoolean(3, usuario.isEstatus());
         int r = pst.executeUpdate();
 
         if(r > 0){
             ResultSet rs = pst.getGeneratedKeys();
             if(rs.next())
                 usuario.setId(rs.getInt(1));
-            
+            else
+                usuario = null;
+                
             return usuario;
         }
         else
@@ -69,15 +71,17 @@ public class UsuarioDAO implements IUsuario{
         ResultSet rs = null;
         List<UsuarioDTO> listUsuarioDto = new ArrayList<>();
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        pst = con.prepareStatement("SELECT *FROM Usuarios");
+        pst = con.prepareStatement("SELECT *FROM Usuarios order by id");
         rs = pst.executeQuery();
 
         while(rs.next()){
             UsuarioDTO usuario = new UsuarioDTO();
+            usuario.setId(rs.getInt("id"));
             usuario.setEmail(rs.getString("email"));
             usuario.setPassword(rs.getString("password"));
             usuario.setFechaIngreso(rs.getDate("fecha_ingreso"));
             usuario.setEstatus(rs.getBoolean("estatus"));
+            usuario.setIdPermiso(PermisoBusiness.buscar(rs.getInt("id")));
             listUsuarioDto.add(usuario);
         }
         return listUsuarioDto;
@@ -87,7 +91,7 @@ public class UsuarioDAO implements IUsuario{
     public UsuarioDTO update(UsuarioDTO usuario) throws Exception {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        pst = con.prepareStatement("UPDATE usuarios SET password = ?, estatus = ?, id_rol = ? WHERE id = ?");
+        pst = con.prepareStatement("UPDATE usuarios SET id_rol = ? WHERE id = ?");
         pst.setString(1, usuario.getPassword());
         pst.setBoolean(2, usuario.isEstatus());
         pst.setInt(4, usuario.getId());
@@ -105,9 +109,8 @@ public class UsuarioDAO implements IUsuario{
     public UsuarioDTO delete(UsuarioDTO usuario) throws Exception {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        pst = con.prepareStatement("UPDATE usuarios SET estatus = ? WHERE id = ?");
-        pst.setBoolean(1, usuario.isEstatus());
-        pst.setInt(2, usuario.getId());
+        pst = con.prepareStatement("UPDATE usuarios SET estatus = NOT estatus WHERE id = ?");
+        pst.setInt(1, usuario.getId());
 
         int r = pst.executeUpdate();
         if(r > 0){

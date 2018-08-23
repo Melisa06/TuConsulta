@@ -6,38 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav mx-auto">
-             <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="IndexCliente.html">Perfil
-                <span class="sr-only">(current)</span>
-              
-              </a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="Citas.html">Citas </a>
-            </li>
-             <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="productos.html">Productos</a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="mispacientes.html">Mis pacientes</a>
-            </li>
-            <li class="nav-item px-lg-4">
-
-                
-              <a class="nav-link text-uppercase text-expanded" href="javascript:;" onclick="aviso('../index.html'); return false;">Cerar Sesion</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 <section class="page-section about-heading">
       <div class="container">
         <!--img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="img/medico.jpg"  width="1000" height="50"-->

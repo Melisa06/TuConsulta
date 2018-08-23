@@ -1,6 +1,6 @@
 <%-- 
-    Document   : detailsRecepcionista
-    Created on : Aug 20, 2018, 1:42:57 AM
+    Document   : detailsConsulta
+    Created on : Aug 20, 2018, 3:13:19 AM
     Author     : Ricardo Camacho
 --%>
 

@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.dto.CitaDTO;
@@ -23,7 +22,7 @@ import modelo.interfaz.ICita;
  */
 public class CitaDAO implements ICita {
 
-    String URL = "jdbc:postgresql://localhost:5432/tuconsulta";
+    String URL = "jdbc:postgresql://localhost:5432/TuConsulta";
     String USER = "postgres";
     String PASSWORD = "admin";
 
@@ -39,11 +38,10 @@ public class CitaDAO implements ICita {
         
         
         pst = con.prepareStatement("INSERT INTO cita (fechacita,hr_cita,id_paciente,id_medico,estatus) values ('?',?,?,?,?)");
-
         pst.setString(1, cita.getFechacita());
         pst.setString(2, cita.getHr_cita());
-        pst.setInt(3, cita.getId_paciente().getId_paciente());
-        pst.setInt(4, cita.getId_medico().getId_medico());
+        pst.setInt(3, cita.getId_paciente().getId());
+        pst.setInt(4, cita.getId_medico().getId());
         pst.setBoolean(5, cita.isEstatus());
 
         int result = pst.executeUpdate();
@@ -90,7 +88,7 @@ public class CitaDAO implements ICita {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
 
-        List<CitaDTO> ids = new ArrayList<CitaDTO>();
+        List<CitaDTO> ids = new ArrayList<>();
 
         pst = con.prepareStatement("select id,fechacita,hr_cita,id_paciente,id_medico,estatus " + "From cita");
 
@@ -126,7 +124,7 @@ public class CitaDAO implements ICita {
 
         pst.setString(1, cita.getFechacita());
         pst.setString(2, cita.getHr_cita());
-        pst.setInt(3, cita.getId_medico().getId_medico());
+        pst.setInt(3, cita.getId_medico().getId());
         pst.setBoolean(4, cita.isEstatus());
         pst.setInt(5, cita.getId());
 
