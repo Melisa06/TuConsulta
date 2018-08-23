@@ -21,7 +21,7 @@
                     </a>
                 </li>
                 <li class="nav-item px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="productos">Productos</a>
+                    <a class="nav-link text-uppercase text-expanded" href="medicamento">Productos</a>
                 </li>
                 <li class="nav-item px-lg-4">
                     <a class="nav-link text-uppercase text-expanded" href="medicos">Medicos</a>
@@ -58,7 +58,9 @@
                     <div class="bg-faded rounded p-5">
                         <h2>Productos</h2>
                         <a href="nuevo_medicamento">
-                            <button class="btn btn-primary">Nuevo Producto</button>
+                            <input type="submit" value="Nuevo medicamento" name="btnNuevo"
+               onClick="document.location = 'nuevo_medicamento';"/>
+                           
                         </a>
                     </div>
                 </div>
@@ -71,58 +73,29 @@
 
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="card">
-          <img class="card-img-top" src="medicamentos_imagenes/paracetamol.jpg" alt="">
+          <c:forEach var="medicamentos" items="${medicamento}">
+            <img src ="medicamento_imagenes/${medicamentos.id}.png" width="50" height="40">
+                
           <div class="card-body">
-            <h4 class="card-title">Paracetamol</h4>
-            <p class="card-text">Descripcion.</p>
-            <p class="card-text">$ 100.00</p>
+            <h4 class="card-title"><td>${medicamentos.nombreMedicamento}</td></h4>
+            <p class="card-text">Clave: ${medicamentos.id}</p>
+            <p class="card-text">${medicamentos.descripcion}</p>
+            <p class="card-text">${medicamentos.fechaActualizacion}</p>
+             <p class="card-text">Disponibles: ${medicamentos.stock} pzas</p>
+               <p class="card-text">Precio sugerido :$ ${medicamentos.precio}</p>
+           
           </div>
           <div class="card-footer">
 
 
-            <a class="btn btn-primary" href="" onclick='alert("Aun no esta disponible.")'>Comprar</a>
-
+           
+            <a class="btn btn-primary" href="" onclick='alert("Aun no esta disponible.")'>Ver</a>
+          
           </div>
         </div>
-      </div>
+     </div>
+</c:forEach>
 
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card">
-          <img class="card-img-top" src="medicamentos_imagenes/naproxeno.jpg" alt=" ">
-            <div class="card-body ">
-              <h4 class="card-title ">Naproxeno</h4>
-              <p class="card-text ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-            </div>
-            <div class="card-footer ">
-              <a href="# " class="btn btn-primary ">Comprar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-4 ">
-          <div class="card ">
-            <img class="card-img-top " src="http://placehold.it/500x325 " alt=" ">
-            <div class="card-body ">
-              <h4 class="card-title ">Card title</h4>
-              <p class="card-text ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-            </div>
-            <div class="card-footer ">
-              <a href="# " class="btn btn-primary ">Comprar</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-4 ">
-          <div class="card ">
-            <img class="card-img-top " src="http://placehold.it/500x325 " alt=" ">
-            <div class="card-body ">
-              <h4 class="card-title ">Card title</h4>
-              <p class="card-text ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-            </div>
-            <div class="card-footer ">
-              <a href="# " class="btn btn-primary ">Comprar</a>
-            </div>
-          </div>
-        </div>
+   
 
 </div>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cita.negocio;
+package modelo.negocio;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,16 +22,16 @@ import modelo.dto.PacienteDTO;
  */
 public class CitaBussines {
 
-    public static CitaDTO crear(int id,String fechacita, PacienteDTO id_paciente, MedicoDTO id_medico,Boolean estatus ) throws SQLException {
+    public static CitaDTO crear(int id,String fechacita,String hr_cita, PacienteDTO id_paciente,MedicoDTO id_medico,Boolean estatus ) throws SQLException {
 
         Connection con = null;
-        con.setAutoCommit(false);
 
         CitaDTO c = new CitaDTO();
         CitaDAO dao = new CitaDAO();
 
         c.setId(id);
         c.setFechacita(fechacita);
+        c.setHr_cita(hr_cita);
         c.setId_paciente(id_paciente);
         c.setId_medico(id_medico);
         
@@ -49,13 +49,14 @@ public class CitaBussines {
 
     }
 
-    public static CitaDTO buscar(int id,String fechacita, MedicoDTO id_medico) {
+    public static CitaDTO buscar(int id,String fechacita,String hr_cita,MedicoDTO id_medico) {
 
         CitaDTO c = new CitaDTO();
         CitaDAO dao = new CitaDAO();
 
         c.setId(id);
         c.setFechacita(fechacita);
+        c.setHr_cita(hr_cita);
         c.setId_medico(id_medico);
         
         try {
@@ -107,13 +108,14 @@ public class CitaBussines {
 
     }
 
-    public static CitaDTO actualizar(int id,String fechacita, MedicoDTO id_medico,Boolean estatus ) {
+    public static CitaDTO actualizar(int id,String fechacita,String hr_cita,MedicoDTO id_medico,Boolean estatus ) {
 
         CitaDTO c = new CitaDTO();
         CitaDAO dao = new CitaDAO();
 
         c.setId(id);
         c.setFechacita(fechacita);
+        c.setHr_cita(hr_cita);
         c.setId_medico(id_medico);
         c.setEstatus(estatus);
         
@@ -149,5 +151,3 @@ public class CitaBussines {
     }
 
 }
-
-//duda en el de actualizar y eliminar
