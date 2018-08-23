@@ -59,7 +59,7 @@ public class controlMedicamento extends HttpServlet {
             //enviar datos a jsp
             request.setAttribute("medicamento", dts);
 
-            request.getRequestDispatcher("/WEB-INF/folder/medicamentos.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/folder/listProducto.jsp").forward(request, response);
 
         } else if (url.equals("/nuevo_medicamento")) {
 
