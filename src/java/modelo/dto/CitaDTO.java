@@ -15,6 +15,7 @@ public class CitaDTO {
     
     private int id;
     private String fechacita;
+    private String hr_cita;
     private PacienteDTO id_paciente;
     private MedicoDTO id_medico;
     private boolean estatus;
@@ -34,6 +35,14 @@ public class CitaDTO {
 
     public void setFechacita(String fechacita) {
         this.fechacita = fechacita;
+    }
+    
+    public String getHr_cita() {
+        return hr_cita;
+    }
+
+    public void setHr_cita(String hr_cita) {
+        this.hr_cita = hr_cita;
     }
 
     public PacienteDTO getId_paciente() {
