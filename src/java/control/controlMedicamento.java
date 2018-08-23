@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -87,7 +87,7 @@ public class controlMedicamento extends HttpServlet {
             request.setAttribute("disponibilidad", "disabled");
 
             request.setAttribute("textoboton", "Actualizar");
-            request.getRequestDispatcher("/WEB-INF/folder/frmMedicamento.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/productos/createProducto.jsp").forward(request, response);
         }
         else if(url.equals("/productos")){
             request.getRequestDispatcher("/WEB-INF/productos/listProducto.jsp").forward(request, response);
