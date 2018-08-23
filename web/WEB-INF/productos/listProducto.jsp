@@ -86,10 +86,25 @@
            
           </div>
           <div class="card-footer">
+<c:if test='${medicamentos.estatus == true}'>
+                                
+                                <a href="#" class="btn btn-primary"  name="btnActivar"  onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';">Eliminar</a>
+                            </c:if>
+                             <c:if test='${medicamentos.estatus == false}'>
+                               <a href="#" class="btn btn-primary"  name="btnActivar"  onClick="document.location = 'activar_medicamento?n=${medicamentos.id}';">Acivar</a>
 
+                                 
+                             </c:if>
+                      
+   <a href="#" class="btn btn-primary"  name="btnActualizar" onClick="document.location = 'editar_medicamento?n=${medicamentos.id}';">Actualizar</a>
 
-           
-            <a class="btn btn-primary" href="" onclick='alert("Aun no esta disponible.")'>Ver</a>
+                            
+                        
+                  
+                    
+                </c:forEach>
+
+          
           
           </div>
         </div>
