@@ -86,7 +86,7 @@ private final String PDW ="admin";
             pd = null;
         }
         return pd;
-            }
+    }
     
 
     
@@ -117,12 +117,12 @@ private final String PDW ="admin";
         PreparedStatement pst = null; 
         ResultSet rs = null; 
         conn = DriverManager.getConnection(URL, USR,PDW);
-        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus "
+        pst = conn.prepareStatement("SELECT id, nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus "
                 + "FROM paciente");
         rs = pst.executeQuery(); 
         while (rs.next()) {
             pd = new PacienteDTO();
-            
+            pd.setId(rs.getInt("id"));
             pd.setNombrePaciente(rs.getString("nombre_pac"));
             pd.setApellidoPaterno(rs.getString("ap_pac"));
             pd.setApellidoMaterno(rs.getString("am_pac"));
@@ -132,7 +132,7 @@ private final String PDW ="admin";
             pd.setEstatura(rs.getDouble("estatura"));
             pd.setTelPaciente(rs.getString("tel_pac"));
           //pd.setIdUsuarioDTO(rs.getIdUsuarioDTO("id_us"));
-            pd.setEstatus(rs.getBoolean("eststus"));
+            pd.setEstatus(rs.getBoolean("estatus"));
             
             lista.add(pd);
         }
@@ -157,5 +157,23 @@ private final String PDW ="admin";
         }
         }
     
-    
+    public PacienteDTO buscarId(PacienteDTO pd) throws Exception {
+        Connection conn = null ; 
+        PreparedStatement pst = null;
+        ResultSet rs=null;
+        Class.forName("org.postgresql.Driver");
+        conn = DriverManager.getConnection(URL,USR,PDW);
+        pst = conn.prepareStatement("SELECT * from paciente where id_us = ?");
+        pst.setInt(1, pd.getIdUsuarioDTO().getId());
+        rs =pst.executeQuery();
+
+        if(rs.next()){
+            pd.setId(rs.getInt("id"));
+        }
+        
+        else{
+            pd = null;
+        }
+        return pd;
+    }
 }

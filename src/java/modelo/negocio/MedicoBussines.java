@@ -51,12 +51,13 @@ public class MedicoBussines {
     }
    
     
-     public static MedicoDTO buscar(String nombre){
+     public static MedicoDTO buscar(String nombre, int id){
     
             MedicoDTO m = new MedicoDTO();
             MedicoDAO dao = new MedicoDAO();
             
             m.setNombre(nombre);
+            m.setId(id);
             
             try {
                 m = dao.read(m);
@@ -156,6 +157,19 @@ public class MedicoBussines {
             
             return m;
     
+    }
+     
+     public static MedicoDTO buscarId(int id){
+        MedicoDTO pacientedto = new MedicoDTO(); 
+        MedicoDAO pacientedao = new MedicoDAO(); 
+        try {
+            pacientedto.setIdUsuario(new UsuarioDTO(id));
+            pacientedto = pacientedao.buscarId(pacientedto);
+        } catch (Exception e) {
+            Logger.getLogger(PacienteBussines.class.getName()).log(Level.SEVERE, null, e);
+            pacientedto = null; 
+        }
+        return pacientedto;
     }
     
 }

@@ -102,6 +102,19 @@ public class PacienteBussines {
     
     }
     
+    public static PacienteDTO buscarId(int id){
+        PacienteDTO pacientedto = new PacienteDTO(); 
+        PacienteDAO pacientedao = new PacienteDAO(); 
+        try {
+            pacientedto.setIdUsuarioDTO(new UsuarioDTO(id));
+            pacientedto = pacientedao.buscarId(pacientedto);
+        } catch (Exception e) {
+            Logger.getLogger(PacienteBussines.class.getName()).log(Level.SEVERE, null, e);
+            pacientedto = null; 
+        }
+        return pacientedto;
+    }
+    
     
     
 }

@@ -33,8 +33,8 @@
                     <td>${citas.id}</td>
                     <td>${citas.fechacita}</td>
                     <td>${citas.hr_cita}</td>
-                    <td>${citas.id_paciente.nombrePaciente}</td>
-                    <td>${citas.id_medico.nombre}</td>
+                    <td>${citas.id_paciente.id}</td>
+                    <td>${citas.id_medico.id}</td>
                     <td>${citas.estatus}</td>
                 </tr>
                 </c:forEach>

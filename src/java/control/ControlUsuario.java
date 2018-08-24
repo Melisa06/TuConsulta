@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import modelo.dto.PermisoDTO;
 import modelo.dto.RolDTO;
 import modelo.dto.UsuarioDTO;
+import modelo.negocio.MedicoBussines;
+import modelo.negocio.PacienteBussines;
 import modelo.negocio.PermisoBusiness;
 import modelo.negocio.RolBusiness;
 import modelo.negocio.UsuarioBusiness;
@@ -177,9 +179,11 @@ public class ControlUsuario extends HttpServlet {
                                 break;
                             case 2:
                                 response.sendRedirect("medico");
+                                sesion.setAttribute("idUsuarioActual", MedicoBussines.buscarId(dto.getId()).getId());
                                 break;
                             case 3:
                                 response.sendRedirect("paciente");
+                                sesion.setAttribute("idUsuarioActual", PacienteBussines.buscarId(dto.getId()).getId());
                                 break;
                             default:
                                 response.sendRedirect("/");

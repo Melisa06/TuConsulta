@@ -7,6 +7,7 @@ package control;
 
 import modelo.negocio.CitaBussines;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,39 +67,44 @@ public class controlCitas extends HttpServlet {
         url = request.getServletPath();
         
         int id,id_paciente,id_medico;
-        String fechacita,hr_cita;
+        String fechacita ="",hr_cita;
         boolean estatus;
         
         switch(url){
             
-            case "/nuevaConsulta":
-                fechacita = request.getParameter("txtFechacita");
-                hr_cita = request.getParameter("txtHr_cita");
+            case "/nuevaCita":
+                fechacita = request.getParameter("txtFecha");
+                hr_cita = request.getParameter("txtHora");
                 id_paciente = Integer.parseInt(request.getParameter("datosPac"));
                 id_medico = Integer.parseInt(request.getParameter("datosMed"));
                 estatus = true;
                 id = 0;
-                 
-                if (fechacita.isEmpty() || hr_cita.isEmpty()) {
-                    //regresa
-                } 
-                else {
-                    //valida si ya existe
-                    CitaDTO cDTOB = CitaBussines.consultaExistencia(fechacita, hr_cita, id_paciente, id_medico);
-
-                    //si no existe pos lo crea
-                    if (cDTOB == null) {
-                        try {
-                            CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id), new MedicoDTO(id), Boolean.TRUE);
-                        } catch (Exception ex) {
-                            Logger.getLogger(controlCitas.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                
+                try { 
+                    if (fechacita.isEmpty() || hr_cita.isEmpty()) {
+                        //regresa
                     } 
-                    //si ya existe pos alv
                     else {
-                        //aqui lo que quieras regresarlo o mandarle el error :v
-                        response.sendRedirect("citas");
+                        //valida si ya existe
+                        CitaDTO cDTOB = CitaBussines.consultaExistencia(fechacita, hr_cita, id_paciente, id_medico);
+
+                        //si no existe pos lo crea
+                        if (cDTOB != null) {
+                            try {
+                                CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id_paciente), new MedicoDTO(id_medico), Boolean.TRUE);
+                                response.sendRedirect("citas");
+                            } catch (Exception ex) {
+                                Logger.getLogger(controlCitas.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        //si ya existe pos alv
+                        else {
+                            //aqui lo que quieras regresarlo o mandarle el error :v
+                            response.sendRedirect("citas");
+                        }
                     }
+                } catch (Exception e) {
+                    response.sendRedirect("citas");
                 }
                 break;
         }

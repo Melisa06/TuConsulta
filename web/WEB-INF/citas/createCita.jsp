@@ -15,7 +15,7 @@
                 <div class="col-xl-9 col-lg-10 mx-auto">
                     <div class="bg-faded rounded p-5">
                         <!--<img class="img-fluid rounded about-heading-img mb-2 mb-lg-0" src="public/img/cita.jpg" alt="" width="500" height="50">-->
-                        <form action="" method="post" name="nuevaConsulta">
+                        <form action="" method="post" name="nuevaCita">
                             <h2>
                                 <span class="section-heading-lower">Agendar cita</span>
                             </h2>
@@ -40,7 +40,7 @@
                                 <span class="section-heading-upper">Paciente:</span>
                                 <select name="datosPac" class="form-control" style="visibility:${visible}">
                                     <c:forEach var="datosPac" items="${datosPac}">
-                                        <option value="${datosPac.id}">${datosPac.nombre_pac}</option>
+                                        <option value="${datosPac.id}">${datosPac.nombrePaciente}</option>
                                     </c:forEach>
                                 </select>
                             </c:if>

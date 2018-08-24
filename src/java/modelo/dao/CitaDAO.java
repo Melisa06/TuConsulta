@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import modelo.dto.CitaDTO;
 import modelo.dto.MedicoDTO;
@@ -34,11 +36,13 @@ public class CitaDAO implements ICita {
 
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-
         
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date = formatter.parse(cita.getFechacita());
+        java.sql.Date fechaCita = new java.sql.Date(date.getTime());   
         
-        pst = con.prepareStatement("INSERT INTO cita (fechacita,hr_cita,id_paciente,id_medico,estatus) values ('?','?',?,?,'?')");
-        pst.setString(1, cita.getFechacita());
+        pst = con.prepareStatement("INSERT INTO cita (fechacita,hr_cita,id_paciente,id_medico,estatus) values (?,?,?,?,?)");
+        pst.setDate(1, fechaCita);
         pst.setString(2, cita.getHr_cita());
         pst.setInt(3, cita.getId_paciente().getId());
         pst.setInt(4, cita.getId_medico().getId());
@@ -160,13 +164,16 @@ public class CitaDAO implements ICita {
     
     public boolean consultaExistencia(String fechacita,String hr_cita,int id_paciente, int id_medico){
     
-    try{Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    try{
     
     Class.forName("org.postgresql.Driver");
     con = DriverManager.getConnection(URL, USER, PASSWORD);
-    
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date = formatter.parse(fechacita);
+        java.sql.Date fechaCita = new java.sql.Date(date.getTime());  
+        
     pst = con.prepareStatement("Select * from cita where fechacita = ? and hr_cita = ? and id_paciente = ? and id_medico = ?");
-    pst.setString(1, fechacita);
+    pst.setDate(1, fechaCita);
     pst.setString(2, hr_cita);
     pst.setInt(3, id_paciente);
     pst.setInt(4, id_medico);

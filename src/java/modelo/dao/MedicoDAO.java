@@ -71,6 +71,22 @@ public class MedicoDAO implements IMedico{
         else
             throw new Exception("No existe");
     }
+    
+    public MedicoDTO buscarId(MedicoDTO medico) throws Exception {
+        Class.forName("org.postgresql.Driver");
+        ResultSet rs = null;
+        con = DriverManager.getConnection(URL, USER, PASSWORD);
+        pst = con.prepareStatement("SELECT *FROM medico WHERE id_usuario = ?");
+        pst.setInt(1, medico.getIdUsuario().getId());
+        rs = pst.executeQuery();
+
+        if(rs.next()){
+            medico.setId(rs.getInt("id"));
+            return medico;
+        }
+        else
+            throw new Exception("No existe");
+    }
 
     public List<MedicoDTO> readAll() throws Exception{
         Class.forName("org.postgresql.Driver");
@@ -82,6 +98,7 @@ public class MedicoDAO implements IMedico{
 
         while(rs.next()){
             MedicoDTO medico = new MedicoDTO();
+            medico.setId(rs.getInt("id"));
             medico.setNombre(rs.getString("nombre_med"));
             medico.setPaterno(rs.getString("ap_med"));
             medico.setMaterno(rs.getString("am_med"));
