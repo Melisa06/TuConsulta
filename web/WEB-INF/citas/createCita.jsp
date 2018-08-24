@@ -20,6 +20,18 @@
                                 <span class="section-heading-lower">Agendar cita</span>
                             </h2>
                             <br><br>
+                            <span class="section-heading-upper">${idMedPac}</span>
+                            <select name="datosMed" class="form-control" style="visibility:${styleOcultarDoc}">
+                                <c:forEach var="datosMed" items="${datosMed}">
+                                    <option value="${datosMed.id}">${datosMed.nombre_med}</option>
+                                </c:forEach>
+                            </select>
+                                <select name="datosPac" class="form-control" style="visibility:${visible}">
+                                <c:forEach var="datosPac" items="${datosPac}">
+                                    <option value="${datosPac.id}">${datosPac.nombre_pac}</option>
+                                </c:forEach>
+                            </select>
+                            <br>
                             <span class="section-heading-upper">Fecha:</span>
                             <input type="date" class="form-control" name="txtFecha" placeholder="" value="" min="{Fecha actual">
                             <br>
@@ -35,5 +47,4 @@
         </div>
     </div>
 </section>
-
 
