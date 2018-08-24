@@ -48,7 +48,21 @@
         </div>
     </div>
 </nav>
-
+ <title>Agregar medicamento</title>
+         <script>
+      var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('output');
+           var img = document.getElementById('img64');
+          
+          output.src = reader.result;
+          img.value = reader.result;
+          
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+    </script>
 
 <section class="page-section about-heading">
     <div class="container">
