@@ -73,7 +73,7 @@
                             <h2 class="section-heading mb-4">
                                 <span class="section-heading-upper">Fecha de nacimiento:</span>
                             </h2>
-                            <input type="text" class="form-control" name="txtFecha" placeholder="FEcha" value="${paciente.FechNac}" >
+                            <input type="Date" class="form-control" name="txtFecha" placeholder="FEcha" value="${paciente.FechNac}" >
                             <br>
                             <br>
                             <hr>
