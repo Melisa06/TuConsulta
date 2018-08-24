@@ -180,6 +180,24 @@ public static MedicamentoDTO activar(int m, boolean status) {
             return u;
     
     }  
-    
+  public static MedicamentoDTO consultarExistencia(String nombreM){
+    MedicamentoDTO u = new MedicamentoDTO();
+    MedicamentoDAO dao = new MedicamentoDAO();
+    u.setNombreMedicamento(nombreM);
+        try {
+            if (dao.consultaExistencia(nombreM) == false){
+                u = null;
+            }
+            else{
+               return u; 
+            }
+            } catch (Exception ex) {
+                Logger.getLogger(MedicamentoBussines.class.getName()).log(Level.SEVERE, null, ex);
+                u = null;
+                System.out.print("Error: "+ex.getMessage());
+            }
+            
+            return u;   
+  }    
 }
 

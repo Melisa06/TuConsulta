@@ -13,5 +13,6 @@ import modelo.dto.DetalleVentDTO;
 public interface IDestalleVenta {
     public DetalleVentDTO create(DetalleVentDTO det) throws Exception;
     public DetalleVentDTO read(DetalleVentDTO det) throws Exception;
+    public DetalleVentDTO createDetalle(DetalleVentDTO venta) throws Exception;
     
 }

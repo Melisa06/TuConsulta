@@ -22,7 +22,7 @@ import modelo.dto.PacienteDTO;
  */
 public class CitaBussines {
 
-    public static CitaDTO crear(int id,String fechacita,String hr_cita, PacienteDTO id_paciente,MedicoDTO id_medico,Boolean estatus ) throws SQLException {
+    public static CitaDTO crear(int id, String fechacita, String hr_cita, PacienteDTO id_paciente, MedicoDTO id_medico, Boolean estatus) throws SQLException {
 
         Connection con = null;
 
@@ -34,7 +34,6 @@ public class CitaBussines {
         c.setHr_cita(hr_cita);
         c.setId_paciente(id_paciente);
         c.setId_medico(id_medico);
-        
 
         try {
             c = dao.create(c);
@@ -49,7 +48,7 @@ public class CitaBussines {
 
     }
 
-    public static CitaDTO buscar(int id,String fechacita,String hr_cita,MedicoDTO id_medico) {
+    public static CitaDTO buscar(int id, String fechacita, String hr_cita, MedicoDTO id_medico) {
 
         CitaDTO c = new CitaDTO();
         CitaDAO dao = new CitaDAO();
@@ -58,7 +57,7 @@ public class CitaBussines {
         c.setFechacita(fechacita);
         c.setHr_cita(hr_cita);
         c.setId_medico(id_medico);
-        
+
         try {
             c = dao.read(c);
         } catch (Exception ex) {
@@ -108,7 +107,7 @@ public class CitaBussines {
 
     }
 
-    public static CitaDTO actualizar(int id,String fechacita,String hr_cita,MedicoDTO id_medico,Boolean estatus ) {
+    public static CitaDTO actualizar(int id, String fechacita, String hr_cita, MedicoDTO id_medico, Boolean estatus) {
 
         CitaDTO c = new CitaDTO();
         CitaDAO dao = new CitaDAO();
@@ -118,7 +117,6 @@ public class CitaBussines {
         c.setHr_cita(hr_cita);
         c.setId_medico(id_medico);
         c.setEstatus(estatus);
-        
 
         try {
             c = dao.update(c);
@@ -131,7 +129,7 @@ public class CitaBussines {
 
     }
 
-    public static CitaDTO eliminar(int id,Boolean estatus) {
+    public static CitaDTO eliminar(int id, Boolean estatus) {
 
         CitaDTO c = new CitaDTO();
         CitaDAO dao = new CitaDAO();
@@ -148,6 +146,29 @@ public class CitaBussines {
 
         return c;
 
+    }
+
+    public static CitaDTO consultaExistencia(String fechacita, String hr_cita, int id_paciente, int id_medico) {
+        CitaDTO u = new CitaDTO();
+        CitaDAO dao = new CitaDAO();
+
+        u.setFechacita(fechacita);
+        u.setHr_cita(hr_cita);
+        u.setId_paciente(new PacienteDTO(id_paciente));
+        u.setId_medico(new MedicoDTO(id_medico));
+        try {
+            if (dao.consultaExistencia(fechacita, hr_cita,id_paciente,id_medico) == false) {
+                u = null;
+            } else {
+                return u;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CitaBussines.class.getName()).log(Level.SEVERE, null, ex);
+            u = null;
+            System.out.print("Error: " + ex.getMessage());
+        }
+
+        return u;
     }
 
 }

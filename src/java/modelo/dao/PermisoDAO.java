@@ -27,8 +27,8 @@ public class PermisoDAO implements IPermiso{
     public PermisoDTO create(PermisoDTO permiso) throws Exception {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        pst = con.prepareStatement("INSERT INTO permisos(id_rol, id_usuario, estatus, usuarios, medicos, pacientes, citas, recetas, medicamentos, venta, proveedores, sucursales, almacen, compra, estatus) " +
-                                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, true)");
+        pst = con.prepareStatement("INSERT INTO permisos(id_rol, id_usuario, estatus, usuarios, medicos, pacientes, citas, recetas, medicamentos, venta, proveedores, sucursales, almacen, compra) " +
+                                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         pst.setInt(1, permiso.getIdRol().getId());
         pst.setInt(2, permiso.getIdUsuario());
         pst.setBoolean(3, permiso.isEstatus());

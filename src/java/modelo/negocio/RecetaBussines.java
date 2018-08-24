@@ -31,6 +31,8 @@ import java.util.Date;
  */
 public class RecetaBussines {
     
+    static String ruta = "C:/Users/DLL/Documents/NetBeansProjects/TuConsulta/web/RecetasPDF/";
+    
      public static RecetaDTO crear(int id_paciente,String fecha,String observaciones) {
     
             RecetaDTO u = new RecetaDTO();
@@ -138,7 +140,7 @@ public class RecetaBussines {
             table.addCell(celdaFinal);
              
  
-        PdfWriter.getInstance(document, new FileOutputStream("C:/Users/Morales/Documents/NetBeansProjects/Receta/web/RecetasPDF/receta"+r.getId()+".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(ruta + "receta"+r.getId()+".pdf"));
         document.open();
         
         

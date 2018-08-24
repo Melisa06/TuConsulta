@@ -28,16 +28,22 @@
             //4;"recepcionista"
             HttpSession sesion = request.getSession();
             int rol;
+            int idUsuario;
+            PermisoDTO datos;
             if (sesion.getAttribute("datos") != null) {
-                PermisoDTO datos = (PermisoDTO) sesion.getAttribute("datos");
+                datos = (PermisoDTO) sesion.getAttribute("datos");
                 rol = datos.getIdRol().getId();
-                System.out.println(rol);
+                idUsuario = datos.getIdUsuario();
+                //System.out.println(rol);
             }
             else{
+                datos = null;
+                idUsuario = 0;
                 rol = 0;
                 //response.sendRedirect("inicio");
             }
         %>
+        
         <c:if test = "${title == 'login'}">
             <% rol = 4; %>
         </c:if>
@@ -76,6 +82,9 @@
                                 <a class="nav-link text-uppercase text-expanded" href="usuarios">Usuarios</a>
                             </li>
                             <li class="nav-item px-lg-4">
+                                <a class="nav-link text-uppercase text-expanded" href="venta">Venta</a>
+                            </li>
+                            <li class="nav-item px-lg-4">
                                 <a class="nav-link text-uppercase text-expanded" href="logout">Cerrar Sesión</a>
                             </li>
                         </ul>
@@ -106,6 +115,9 @@
                             </li>
                             <li class="nav-item px-lg-4">
                                 <a class="nav-link text-uppercase text-expanded" href="clientes">Mis pacientes</a>
+                            </li>
+                            <li class="nav-item px-lg-4">
+                                <a class="nav-link text-uppercase text-expanded" href="venta">Venta</a>
                             </li>
                             <li class="nav-item px-lg-4">
                                 <a class="nav-link text-uppercase text-expanded" href="logout">Cerar Sesion</a>

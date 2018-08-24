@@ -1,8 +1,3 @@
-﻿
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package control;
 
 import static com.sun.xml.bind.util.CalendarConv.formatter;
@@ -45,13 +40,16 @@ import sun.misc.BASE64Decoder;
  *
  * @author Jhazmin Alvarez
  */
-@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento","/medicamentopaciente","/activar_medicamento"})
+@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento", "/medicamentopaciente", "/activar_medicamento", "/ver_medicamento"})
 public class controlMedicamento extends HttpServlet {
+
+    String ruta = "C:/Users/DLL/Documents/NetBeansProjects/TuConsulta/web/medicamentos_imagenes/";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getServletPath();
+
         if (url.equals("/medicamento")) {
 
             List<MedicamentoDTO> dts = MedicamentoBussines.buscar();
@@ -65,36 +63,44 @@ public class controlMedicamento extends HttpServlet {
 
             request.setAttribute("titulo", "Nuevo medicamento");
             request.setAttribute("accion", "nuevo_medicamento");
-             request.setAttribute("textoboton", "Guardar");
-             request.setAttribute("oculto", "visibility:hidden");
+            request.setAttribute("textoboton", "Guardar");
+            request.setAttribute("oculto", "visibility:hidden");
             request.getRequestDispatcher("/WEB-INF/productos/createProducto.jsp").forward(request, response);
-           
-        }else if( (url.equalsIgnoreCase("/medicamentopaciente"))){
-           List<MedicamentoDTO> dts = MedicamentoBussines.buscarP();
+
+        } else if ((url.equalsIgnoreCase("/medicamentopaciente"))) {
+            List<MedicamentoDTO> dts = MedicamentoBussines.buscarP();
 
             //enviar datos a jsp
             request.setAttribute("medicamentop", dts);
 
-            request.getRequestDispatcher("/WEB-INF/folder/medicamentosP.jsp").forward(request, response);
-        }else if (url.equals("/borrar_medicamento")) {
-            int m =Integer.parseInt(request.getParameter("n"));
+            request.getRequestDispatcher("/WEB-INF/folder/listProducto.jsp").forward(request, response);
+        } else if (url.equals("/borrar_medicamento")) {
+            int m = Integer.parseInt(request.getParameter("n"));
             boolean status = false;
-            MedicamentoDTO dto = MedicamentoBussines.eliminar(m,status);
+            MedicamentoDTO dto = MedicamentoBussines.eliminar(m, status);
             response.sendRedirect("medicamento");
         } else if (url.equals("/editar_medicamento")) {
             MedicamentoDTO dto = MedicamentoBussines.buscar(Integer.parseInt(request.getParameter("n")));
             request.setAttribute("accion", "editar_medicamento");
             request.setAttribute("dato", dto);
             request.setAttribute("nombreAnterior", dto.getNombreMedicamento());
-            
+
             request.setAttribute("titulo", "Editar medicamento");
-            
+
             System.out.println("_____________________-----_" + request.getParameter("n"));
-            
+
             request.setAttribute("disponibilidad", "disabled");
 
             request.setAttribute("textoboton", "Actualizar");
             request.getRequestDispatcher("/WEB-INF/productos/createProducto.jsp").forward(request, response);
+        } else if (url.equals("/ver_medicamento")) {
+            MedicamentoDTO dto = MedicamentoBussines.buscar(Integer.parseInt(request.getParameter("n")));
+
+            request.setAttribute("dato", dto);
+
+            request.setAttribute("titulo", "Detalles del medicamento");
+
+            request.getRequestDispatcher("/WEB-INF/folder/detailsProducto.jsp").forward(request, response);
         }
     }
 
@@ -119,19 +125,23 @@ public class controlMedicamento extends HttpServlet {
 //             fechaActualizacion=request.getParameter("txtfecha");
 
             System.out.print("IMG : " + request.getParameter("img64"));
+            MedicamentoDTO dto1 = MedicamentoBussines.consultarExistencia(nombreM);
+            if (dto1 != null) {
 
-           
-            if (nombreM.isEmpty() || descripcion.isEmpty()) {
-
-                response.sendRedirect("nuevo_medicamento");
-
-            } else {
-
-                MedicamentoDTO dto = MedicamentoBussines.crear(nombreM, descripcion, stock, precio, estatus);
-                  crearImg(request.getParameter("img64"),dto.getId()+"");
-                response.sendRedirect("medicamento");
+                if (nombreM.isEmpty() || descripcion.isEmpty()) {
+                    response.sendRedirect("nuevo_medicamento");
+                } 
+                else {
+                    MedicamentoDTO dto = MedicamentoBussines.crear(nombreM, descripcion, stock, precio, estatus);
+                    crearImg(request.getParameter("img64"), dto.getId() + "");
+                    response.sendRedirect("medicamento");
+                }
             }
-        } else if (url.equals("/editar_medicamento")) {
+            else {
+                response.sendRedirect("nuevo_medicamento");
+            }
+        } 
+        else if (url.equals("/editar_medicamento")) {
             int id;
             id = Integer.parseInt(request.getParameter("txtid"));
             nombreM = request.getParameter("txtnombre");
@@ -144,52 +154,51 @@ public class controlMedicamento extends HttpServlet {
             estatus = true;
 
             System.out.print("IMG : " + nombreAnterior);
-           
-            if (request.getParameter("img64").isEmpty() == false && request.getParameter("img64").equals("")== false)  {
-                //borrarImg(...,nombreAnterior);
-                crearImg(request.getParameter("img64"),""+id+"");
-            }
-            if (nombreM.isEmpty() || descripcion.isEmpty()) {
-
-                response.sendRedirect("editar_medicamento");
-            } else {
-
-                MedicamentoDTO dto = MedicamentoBussines.update(id,nombreM , descripcion, stock, precio);
-
-                if (dto != null) {
-                    //Inserción exitosa
-                    response.sendRedirect("medicamento");
-                } else {
-                    //Falla
-                    response.sendRedirect("editar_medicamento?n=" + id);
+            MedicamentoDTO dto1 = MedicamentoBussines.consultarExistencia(nombreM);
+            if (dto1 != null) {
+                if (request.getParameter("img64").isEmpty() == false && request.getParameter("img64").equals("") == false) {
+                    //borrarImg(...,nombreAnterior);
+                    crearImg(request.getParameter("img64"), "" + id + "");
                 }
-
+                if (nombreM.isEmpty() || descripcion.isEmpty()) {
+                    response.sendRedirect("editar_medicamento");
+                } 
+                else {
+                    MedicamentoDTO dto = MedicamentoBussines.update(id, nombreM, descripcion, stock, precio);
+                    if (dto != null) {
+                        //Inserción exitosa
+                        response.sendRedirect("medicamento");
+                    } else {
+                        //Falla
+                        response.sendRedirect("editar_medicamento?n=" + id);
+                    }
+                }
+            } 
+            else {
+                response.sendRedirect("editar_medicamento");
             }
-        }else if (url.equals("/borrar_medicamento")) {
-            int n =Integer.parseInt(request.getParameter("n"));
-           
-       if (n>0){
-           MedicamentoDTO udto = new MedicamentoDTO();
-           MedicamentoBussines ubuss = new MedicamentoBussines();
-           MedicamentoDTO dto = MedicamentoBussines.eliminar(n,false);
-           
-           response.sendRedirect("medicamento");
-           
-           
-           
-           
-       }else{
-           response.sendRedirect("medicamento");
-       }
-            
-        }else{
-            
+        } 
+        else if (url.equals("/borrar_medicamento")) {
+            int n = Integer.parseInt(request.getParameter("n"));
+
+            if (n > 0) {
+                MedicamentoDTO udto = new MedicamentoDTO();
+                MedicamentoBussines ubuss = new MedicamentoBussines();
+                MedicamentoDTO dto = MedicamentoBussines.eliminar(n, false);
+
+                response.sendRedirect("medicamento");
+
+            } else {
+                response.sendRedirect("medicamento");
+            }
+        } 
+        else {
             response.sendRedirect("medicamento");
         }
-
-    
     }
-   public void crearImg(String img, String nombreImg) throws IOException {
+   
+
+    public void crearImg(String img, String nombreImg) throws IOException {
 
         // tokenize the data
         String[] parts = img.split(",");
@@ -205,10 +214,10 @@ public class controlMedicamento extends HttpServlet {
         image = ImageIO.read(bis);
         bis.close();
 
-        String Filepath = "/medicamento_imagenes/";
-        String path = getServletContext().getRealPath(Filepath);
+        // String Filepath = "/medicamento_imagenes/";
+        // String path = getServletContext().getRealPath(Filepath);
         // write the image to a file
-        File outputfile = new File(path + nombreImg + ".png");
+        File outputfile = new File(ruta + nombreImg + ".png");
         //getServletContext().getRealPath("/").replace("\\", "/")+
         // System.out.print("Imagenes_productos/image.png");
         ImageIO.write(image, "png", outputfile);

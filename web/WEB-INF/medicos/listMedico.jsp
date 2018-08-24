@@ -15,50 +15,46 @@
                     <div class="bg-faded rounded p-5">
                         <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="img/ac.jpg" alt="" width="900" height="">
                         <!-- Table -->
+                        
+                        <div class="intro-button mx-auto">
+                            <a class="btn btn-primary " href="nuevoMedico">Agregar +</a>
+                        </div>
+                        <br>
+                        <br>
                         <table class="table" class="table table-striped table-dark">
-                            <br>
-                            <br>
-                            <div class="intro-button mx-auto">
-                                <a class="btn btn-primary " href="agregarMedico">Agregar +</a>
-                            </div>
-                            <tr>
-                                <th>
-                                    <span class="section-heading-upper">Fecha de ingreso</span>
-                                </th>
-                                <th>
-                                    <span class="section-heading-upper">Nombre :</span>
-                                </th>
-                                <th>
-                                    <span class="section-heading-upper">Cedula Profesional</span>
-                                </th>
-                                <th>
-                                    <span class="section-heading-upper">Telefono</span>
-                                </th>
-                                <th>
-                                    <span class="section-heading-upper">Opciones</span>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <span class="section-heading-upper">6/ JUNIO / 2018</span>
-                                </th>
-                                <th>
-                                    <span class="section-heading-upper">Juan Perez Lopez</span>
-                                </th>
-                                <th>
-                                    <span class="section-heading-upper">34567890</span>
-                                </th>
-                                <th>
-                                    <span class="section-heading-upper">442-234-8989</span>
-                                </th>
-                                <th>
-                                    <div class="intro-button mx-auto">
-                                        <a class="btn btn-primary " href="detalleMedico">Abrir</a>
-                                        <a class="btn btn-primary " href="detalleMedico">Editar</a>
-                                        <a class="btn btn-primary " href="formMedico.html">Eliminar</a>
-                                    </div>
-                                </th>
-                            </tr>
+                            
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="section-heading-upper">Nombre</span>
+                                    </th>
+                                    <th>
+                                        <span class="section-heading-upper">Cedula Profesional</span>
+                                    </th>
+                                    <th>
+                                        <span class="section-heading-upper">Opciones</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <c:forEach var="medico" items="${listaMedicos}">
+                                    <tr>
+                                        <td>
+                                            <span class="section-heading-upper">${medico.nombre}  ${medico.paterno}</span>
+                                        </td>
+                                        <td>
+                                            <span class="section-heading-upper">${medico.cedula}</span>
+                                        </td>
+                                        <td>
+                                            <div class="intro-button mx-auto">
+                                                <a class="btn btn-primary " href="detalleMedico">Abrir</a>
+                                                <a class="btn btn-primary " href="detalleMedico">Editar</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
                         </table>
                     </div>
                 </div>

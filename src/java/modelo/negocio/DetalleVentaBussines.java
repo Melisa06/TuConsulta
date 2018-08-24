@@ -16,7 +16,7 @@ import modelo.dto.VentaDTO;
  * @author daniel
  */
 public class DetalleVentaBussines {
-    public static DetalleVentDTO crear(int idVenta,int idMedi,int cant,double precioUni,double montoTotal,double montoRecibido){
+    public static DetalleVentDTO crear(int idVenta,int idMedi,int cant,double precioUni,double montoTotal){
              
         DetalleVentDTO d = new DetalleVentDTO();
         DetalleVentaDAO dao = new DetalleVentaDAO();
@@ -24,9 +24,8 @@ public class DetalleVentaBussines {
         d.setIdVenta(new VentaDTO(idVenta));
         d.setIdMedicamento(new MedicamentoDTO(idMedi));
         d.setCant(cant);
-        d.setMontoTotal(montoTotal);
-        d.setMontoRecibido(montoRecibido);
         d.setPrecioUni(precioUni);
+        d.setMontoTotal(montoTotal);
         
         try {
             d = dao.create(d);
