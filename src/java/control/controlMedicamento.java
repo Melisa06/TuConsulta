@@ -47,11 +47,12 @@ import sun.misc.BASE64Decoder;
  */
 @WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento","/medicamentopaciente","/activar_medicamento"})
 public class controlMedicamento extends HttpServlet {
-
+ String ruta="C:/Users/hp/Documents/NetBeansProjects/medicamento/medicamento/web/medicamento_imagenes/";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getServletPath();
+       
         if (url.equals("/medicamento")) {
 
             List<MedicamentoDTO> dts = MedicamentoBussines.buscar();
@@ -204,11 +205,11 @@ public class controlMedicamento extends HttpServlet {
         ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
         image = ImageIO.read(bis);
         bis.close();
-
-        String Filepath = "/medicamento_imagenes/";
-        String path = getServletContext().getRealPath(Filepath);
+     
+       // String Filepath = "/medicamento_imagenes/";
+       // String path = getServletContext().getRealPath(Filepath);
         // write the image to a file
-        File outputfile = new File(path + nombreImg + ".png");
+         File outputfile = new File(ruta+ nombreImg + ".png");
         //getServletContext().getRealPath("/").replace("\\", "/")+
         // System.out.print("Imagenes_productos/image.png");
         ImageIO.write(image, "png", outputfile);
