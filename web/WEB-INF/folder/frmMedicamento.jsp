@@ -28,10 +28,7 @@
     <body>
         <h1> ${titulo} </h1>
         <form method="POST" action="${accion}" >
-       
-        Id:
-        <input type="text" name="txtid" value="${dato.id}" disabled="">
-        
+            
         <br>
         Nombre:
         <input type="text" name="txtnombre" value="${dato.nombreMedicamento}" ${disponibilidad1}>
@@ -52,8 +49,8 @@
        
        <br>  
         Imagen:
-        <img src ="medicamento_imagenes/${dato.id}.png" width="50" height="40" style="${oculto}">
-<!--        <img src='medicamento_imagenes/${dato.id}+".png"' ${disponibilidad1}>-->
+        <img src ="medicamentos_imagenes/${dato.id}.png" width="50" height="40" style="${oculto}">
+<!--        <img src='medicamentos_imagenes/${dato.id}+".png"' ${disponibilidad1}>-->
         <br>
         <img id="output"/>                       
         <input type="file" name="imagen"  accept="image/*" onchange="loadFile(event)">           

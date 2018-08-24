@@ -1,36 +1,36 @@
 <%-- 
-    Document   : lclientes
-    Created on : Aug 20, 2018, 1:10:35 AM
+    Document   : listConsulta
+    Created on : Aug 20, 2018, 3:13:02 AM
     Author     : Ricardo Camacho
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
-<section class="page-section about-heading">
+<section class="page-section cta">
     <div class="container">
         <div class="about-heading-content">
             <div class="bg-faded rounded p-5">
-                <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="public/img/ad.jpg" alt="" width="1000" height="">
-                <!-- Table -->
                 <br>
                 <br>
                 <div class="intro-button mx-auto">
-                    <a class="btn btn-primary " href="nuevoCliente">Agregar +</a>
+                    <a class="btn btn-primary " href="nuevaConsulta">Agregar +</a>
                 </div>
                 <table class="table" class="table table-striped table-dark">
                     <tr>
                         <th>
-                            <span class="section-heading-upper">Fecha de ingreso</span>
+                            <span class="section-heading-upper">Folio</span>
                         </th>
                         <th>
-                            <span class="section-heading-upper">Nombre :</span>
+                            <span class="section-heading-upper">Fecha y hora </span>
                         </th>
                         <th>
-                            <span class="section-heading-upper">Curp</span>
+                            <span class="section-heading-upper">Paciente</span>
                         </th>
                         <th>
-                            <span class="section-heading-upper">Domicilio</span>
+                            <span class="section-heading-upper">Medico</span>
+                        </th>
+                        <th>
+                            <span class="section-heading-upper">Estatus</span>
                         </th>
                         <th>
                             <span class="section-heading-upper">Opciones</span>
@@ -38,25 +38,29 @@
                     </tr>
                     <tr>
                         <th>
-                            <span class="section-heading-upper">6/ JUNIO / 2018</span>
-
+                            <span class="section-heading-upper">0001</span>
+                            </h2>
+                        </th>
+                        <th>
+                            <span class="section-heading-upper">6/ JUNIO / 2018 -- 10:00 am</span>
+                            </h2>
                         </th>
                         <th>
                             <span class="section-heading-upper">Juan Perez Lopez</span>
-
+                            </h2>
                         </th>
                         <th>
-                            <span class="section-heading-upper">PELJ670809HGTRPN02</span>
-
+                            <span class="section-heading-upper">Ivan Camacho Garcia</span>
+                            </h2>
                         </th>
                         <th>
-                            <span class="section-heading-upper">Calle 5 de mayo, Pueblito Corregidora, Santiago de Queretaro C.p 65688</span>
+                            <span class="section-heading-upper">Finalizada</span>
+                            </h2>
                         </th>
                         <th>
                             <div class="intro-button mx-auto">
-                                <a class="btn btn-primary " href="detalleCliente">Abrir</a>
-                                <a class="btn btn-primary " href="historialCliente">Ver historial</a>
-                                <a class="btn btn-primary " href="borrarCliente">Eliminar</a>
+                                <a class="btn btn-primary " href="detalleReceta">Abrir</a>
+                                <a class="btn btn-primary " href="formMedico.html">Ver receta</a>
                             </div>
                         </th>
                     </tr>
@@ -64,4 +68,6 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 </section>

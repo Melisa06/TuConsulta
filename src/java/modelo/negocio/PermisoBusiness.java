@@ -21,6 +21,7 @@ public class PermisoBusiness {
             dto = dao.create(dto);
         }
         catch(Exception ex){
+            dto = null;
             Logger.getLogger(PermisoBusiness.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error " + ex.getMessage());
         }
@@ -55,11 +56,8 @@ public class PermisoBusiness {
         return list;
     }
 
-    public static PermisoDTO actualizar(String nombre, boolean estatus, int id){
-        PermisoDTO dto = new PermisoDTO();
+    public static PermisoDTO actualizar(PermisoDTO dto){
         PermisoDAO dao = new PermisoDAO();
-        dto.setId(id);
-        dto.setEstatus(estatus);
         try{
            dto = dao.update(dto);
         }
@@ -96,6 +94,58 @@ public class PermisoBusiness {
         catch(Exception ex){
             Logger.getLogger(PermisoBusiness.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error " + ex.getMessage());
+        }
+        return dto;
+    }
+    
+    public PermisoDTO getTipoUsuario(int id){
+        
+        /**
+         * 3 SIN ACCESO
+         * 2 LECTURA
+         * 1 EDITAR
+         */
+        
+        PermisoDTO dto = new PermisoDTO();
+        
+        if(id == 1){
+            dto.setUsuarios(1);
+            dto.setMedicos(1);
+            dto.setPacientes(1);
+            dto.setCitas(1);
+            dto.setRecetas(1);
+            dto.setMedicamentos(1);
+            dto.setVenta(1);
+            dto.setProveedores(1);
+            dto.setSucursales(1);
+            dto.setAlmacen(1);
+            dto.setCompra(1);
+        }
+        else if(id == 2){
+            dto.setUsuarios(2);
+            dto.setMedicos(2);
+            dto.setPacientes(1);
+            dto.setCitas(1);
+            dto.setRecetas(1);
+            dto.setMedicamentos(1);
+            dto.setVenta(1);
+            dto.setProveedores(3);
+            dto.setSucursales(3);
+            dto.setAlmacen(2);
+            dto.setCompra(2);
+        }
+        else if(id == 3){
+          dto.setUsuarios(3);
+            dto.setMedicos(3);
+            dto.setPacientes(3);
+            dto.setCitas(2);
+            dto.setRecetas(2);
+            dto.setMedicamentos(2);
+            dto.setVenta(2);
+            dto.setProveedores(3);
+            dto.setSucursales(3);
+            dto.setAlmacen(3);
+            dto.setCompra(3);  
         }
         return dto;
     }

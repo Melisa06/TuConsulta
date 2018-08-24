@@ -1,4 +1,4 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -45,21 +45,21 @@ import sun.misc.BASE64Decoder;
  *
  * @author Jhazmin Alvarez
  */
-@WebServlet(name = "controlMedicamento", urlPatterns = {"/productos", "/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento"})
+@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento"})
 public class controlMedicamento extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getServletPath();
-        if (url.equalsIgnoreCase("/medicamento")) {
+        if (url.equals("/medicamento")) {
 
             List<MedicamentoDTO> dts = MedicamentoBussines.buscar();
 
             //enviar datos a jsp
             request.setAttribute("medicamento", dts);
 
-            request.getRequestDispatcher("/WEB-INF/folder/listProducto.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/productos/listProducto.jsp").forward(request, response);
 
         } else if (url.equals("/nuevo_medicamento")) {
 
@@ -88,9 +88,6 @@ public class controlMedicamento extends HttpServlet {
 
             request.setAttribute("textoboton", "Actualizar");
             request.getRequestDispatcher("/WEB-INF/productos/createProducto.jsp").forward(request, response);
-        }
-        else if(url.equals("/productos")){
-            request.getRequestDispatcher("/WEB-INF/productos/listProducto.jsp").forward(request, response);
         }
     }
 

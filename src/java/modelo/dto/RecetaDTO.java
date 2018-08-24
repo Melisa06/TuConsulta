@@ -14,9 +14,14 @@ public class RecetaDTO {
     private int id;
     private String fecha;
    private String diagnostico ;
-   private CitaDTO idcita ;
+   private CitaDTO idcita;
    private PacienteDTO idpaciente;
    
+   public RecetaDTO(){}
+   
+   public RecetaDTO(int id){
+       this.id = id;
+   }
 
     /**
      * @return the receta

@@ -6,68 +6,62 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item active px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="/">Principal
-                        <span class="sr-only">(current)</span>
-
-                    </a>
-                </li>
-                <li class="nav-item px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="medicamento">Productos</a>
-                </li>
-                <li class="nav-item px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="medicos">Medicos</a>
-                </li>
-                <li class="nav-item px-lg-4">
-                <li class="nav-item px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="recepcionistas">Recepcionistas</a>
-                </li>
-                <li class="nav-item px-lg-4">
-                <li class="nav-item px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="clientes">Clientes</a>
-                </li>
-                <li class="nav-item px-lg-4">
-                <li class="nav-item px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="consultas">Consultas</a>
-                </li>
-
-                <li class="nav-item px-lg-4">
-                <li class="nav-item px-lg-4">
-
-                    <a class="nav-link text-uppercase text-expanded" href="javascript:;" onclick="aviso('../index.html'); return false;">Cerar Sesion</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <section class="page-section about-heading">
     <div class="container">
-        <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="img/about.jpg" alt="">
+        <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="public/img/about.jpg" alt="">
         <div class="about-heading-content">
             <div class="row">
-                <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="mx-auto">
                     <div class="bg-faded rounded p-5">
                         <h2>Productos</h2>
                         <a href="nuevo_medicamento">
-                            <input type="submit" value="Nuevo medicamento" name="btnNuevo"
-               onClick="document.location = 'nuevo_medicamento';"/>
-                           
+                            <input type="submit" class="btn btn-success btn-sm" value="Nuevo medicamento" name="btnNuevo"
+                                   onClick="document.location = 'nuevo_medicamento';"/>
+
                         </a>
+                        <br><br>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE</th>
+                                    <th>DESCRIPCION</th>
+                                    <th>FECHA</th>
+                                    <th>PRECIO</th>
+                                    <th>STOCK</th>
+                                    <th>IMAGEN</th>
+                                    <th>ESTATUS</th>
+                                    <th>OPCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="medicamentos" items="${medicamento}">
+                                    <tr>
+                                        <td>${medicamentos.id}</td>
+                                        <td>${medicamentos.nombreMedicamento}</td>
+                                        <td>${medicamentos.descripcion}</td>
+                                        <td>${medicamentos.fechaActualizacion}</td>
+                                        <td>${medicamentos.precio}</td>
+                                        <td>${medicamentos.stock}</td>
+                                        <td><img src ="medicamentos_imagenes/${medicamentos.id}.png" width="50" height="40"></td>
+                                        <td>${medicamentos.estatus}</td>
+                                        <td>
+                                            <input class="btn btn-warning btn-sm" type="submit" value="Eliminar" name="btnBorrar"
+                                                   onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';"/>
+                                            <input class="btn btn-success btn-sm" type="submit" value="Actualizar" name="btnActualizar"
+                                                   onClick="document.location = 'editar_medicamento?n=${medicamentos.id}';"/>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<<<<<<< HEAD
 
 <div class="row text-center">
 
@@ -114,3 +108,5 @@
    
 
 </div>
+=======
+>>>>>>> 7d24ba15b77c251c10d3453b8257027ff0a2ec1a

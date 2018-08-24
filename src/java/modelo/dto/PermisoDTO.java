@@ -19,7 +19,9 @@ public class PermisoDTO {
     private int proveedores;
     private int sucursales;
     private int almacen;
+    private int compra;
     private int idUsuario;
+    
 
     private RolDTO idRol;
 
@@ -124,6 +126,14 @@ public class PermisoDTO {
 
     public void setAlmacen(int almacen) {
         this.almacen = almacen;
+    }
+
+    public int getCompra() {
+        return compra;
+    }
+
+    public void setCompra(int compra) {
+        this.compra = compra;
     }
 
     public int getIdUsuario() {

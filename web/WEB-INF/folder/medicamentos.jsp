@@ -54,10 +54,6 @@
                                        onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';"/>
                               <input type="submit" value="Actualizar" name="btnActualizar"
                                        onClick="document.location = 'editar_medicamento?n=${medicamentos.id}';"/>
-                          
-                            
-                        
-                        
                         </td>
                        
                     </tr>

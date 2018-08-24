@@ -28,6 +28,7 @@ public class controlMedicos extends HttpServlet {
         
         switch(url){
             case "/medicos":
+                
                 request.getRequestDispatcher("WEB-INF/medicos/listMedico.jsp").forward(request, response);
                 break;
             

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<<<<<<< HEAD
 <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
         <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
@@ -50,6 +51,9 @@
 </nav>
  <title>Agregar medicamento</title>
          <script>
+=======
+<script>
+>>>>>>> 7d24ba15b77c251c10d3453b8257027ff0a2ec1a
       var loadFile = function(event) {
         var reader = new FileReader();
         reader.onload = function(){
@@ -62,7 +66,11 @@
         };
         reader.readAsDataURL(event.target.files[0]);
       };
+<<<<<<< HEAD
     </script>
+=======
+</script>
+>>>>>>> 7d24ba15b77c251c10d3453b8257027ff0a2ec1a
 
 <section class="page-section about-heading">
     <div class="container">
@@ -73,8 +81,6 @@
                     <div class="bg-faded rounded p-5">
                         <h2> ${titulo} </h2>
                         <form method="POST" action="${accion}" >
-                            Id:
-                            <input class="form-control" type="text" name="txtid" value="${dato.id}" disabled="">
                             <br>
                             Nombre:
                             <input class="form-control" type="text" name="txtnombre" value="${dato.nombreMedicamento}" ${disponibilidad1}>
@@ -95,8 +101,8 @@
 
                             <br>  
                             Imagen:
-                            <img src ="medicamento_imagenes/${dato.id}.png" width="50" height="40" style="${oculto}">
-                    <!--        <img src='medicamento_imagenes/${dato.id}+".png"' ${disponibilidad1}>-->
+                            <img src ="medicamentos_imagenes/${dato.id}.png" width="50" height="40" style="${oculto}">
+                    <!--        <img src='medicamentos_imagenes/${dato.id}+".png"' ${disponibilidad1}>-->
                             <br>
                             <img id="output"/>                       
                             <input class="form-control" type="file" name="imagen"  accept="image/*" onchange="loadFile(event)">           
@@ -109,7 +115,7 @@
                             <!--        Fecha
                                     <input type="date" name="txtfecha" >-->
                             <input class="form-control" type="submit" value="${textoboton}"> 
-                        </form> 
+                        </form>
                     </div>
                 </div>
             </div>

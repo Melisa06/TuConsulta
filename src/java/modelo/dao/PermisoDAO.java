@@ -27,8 +27,8 @@ public class PermisoDAO implements IPermiso{
     public PermisoDTO create(PermisoDTO permiso) throws Exception {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        pst = con.prepareStatement("INSERT INTO permisos(id_rol, id_usuario, estatus, usuarios, medicos, pacientes, citas, recetas, medicamentos, venta, proveedores, sucursales, almacen) " +
-                                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        pst = con.prepareStatement("INSERT INTO permisos(id_rol, id_usuario, estatus, usuarios, medicos, pacientes, citas, recetas, medicamentos, venta, proveedores, sucursales, almacen, compra, estatus) " +
+                                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, true)");
         pst.setInt(1, permiso.getIdRol().getId());
         pst.setInt(2, permiso.getIdUsuario());
         pst.setBoolean(3, permiso.isEstatus());
@@ -42,13 +42,16 @@ public class PermisoDAO implements IPermiso{
         pst.setInt(11, permiso.getProveedores());
         pst.setInt(12, permiso.getSucursales());
         pst.setInt(13, permiso.getAlmacen());
+        pst.setInt(14, permiso.getCompra());
         int r = pst.executeUpdate();
 
-        if(r > 0){
-                return permiso;
+        if(r > 0)
+            return permiso;
+        else{
+            permiso = null;
+            return permiso;
         }
-        else
-            throw new Exception("No insertado");
+            
     }
 
     @Override
@@ -74,6 +77,7 @@ public class PermisoDAO implements IPermiso{
             permiso.setProveedores(rs.getInt("proveedores"));
             permiso.setSucursales(rs.getInt("sucursales"));
             permiso.setAlmacen(rs.getInt("almacen"));
+            permiso.setCompra(rs.getInt("compra"));
             return permiso;
         }
         else
@@ -119,8 +123,34 @@ public class PermisoDAO implements IPermiso{
     public PermisoDTO update(PermisoDTO permiso) throws Exception {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        pst = con.prepareStatement("UPDATE permisos SET nombre_permiso = ? WHERE id = ?");
-        pst.setInt(2, permiso.getId());
+        pst = con.prepareStatement(
+                "UPDATE permisos SET "
+                + "id_rol = ?, "
+                + "usuarios = ?, "
+                + "medicos = ?, "
+                + "pacientes = ?, "
+                + "citas = ?, "
+                + "recetas = ?, "
+                + "medicamentos = ?, "
+                + "venta = ?, "
+                + "proveedores = ?, "
+                + "sucursales = ?, "
+                + "almacen = ?, "
+                + "compra = ? WHERE id_usuario = ?");
+        
+        pst.setInt(1, permiso.getIdRol().getId());
+        pst.setInt(2, permiso.getUsuarios());
+        pst.setInt(3, permiso.getMedicos());
+        pst.setInt(4, permiso.getPacientes());
+        pst.setInt(5, permiso.getCitas());
+        pst.setInt(6, permiso.getRecetas());
+        pst.setInt(7, permiso.getMedicamentos());
+        pst.setInt(8, permiso.getVenta());
+        pst.setInt(9, permiso.getProveedores());
+        pst.setInt(10, permiso.getSucursales());
+        pst.setInt(11, permiso.getAlmacen());
+        pst.setInt(12, permiso.getCompra());
+        pst.setInt(13, permiso.getIdUsuario());
         int r = pst.executeUpdate();
 
         if(r > 0){

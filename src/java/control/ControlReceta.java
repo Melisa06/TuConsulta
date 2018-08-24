@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.dto.PacienteDTO;
 import modelo.dto.RecetaDTO;
-import usuario.negocio.RecetaBussines;
+import modelo.negocio.PacienteBussines;
+import modelo.negocio.RecetaBussines;
 
 /**
  *
@@ -56,26 +57,16 @@ public class ControlReceta extends HttpServlet {
         
         System.out.println(url);
         
-        if (url.equalsIgnoreCase("/nueva_receta")){
+        if (url.equals("/nueva_receta")){
             List<PacienteDTO> pacientes = new ArrayList<>(); 
             
-            for(int i = 1; i<5; i++ ){
-                
-                 PacienteDTO dto = new PacienteDTO(i);
-                 dto.setNombrePaciente("Abril"+i);
-             pacientes.add(dto);
-            }
+            pacientes = PacienteBussines.BuscarTodos();
             
             request.setAttribute("pacientes", pacientes);
-           SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
-        request.setAttribute("fecha" , formatter.format(date));
-        
-        System.out.print (formatter.format(date));
-        
+            request.setAttribute("fecha" , formatter.format(date));
             request.getRequestDispatcher("/WEB-INF/receta.jsp").forward(request, response);
-                  
-           
         }
        
     }

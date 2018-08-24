@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<<<<<<< HEAD
 <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
         <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
@@ -48,6 +49,8 @@
         </div>
     </div>
 </nav>
+=======
+>>>>>>> 7d24ba15b77c251c10d3453b8257027ff0a2ec1a
 
 <section class="page-section about-heading">
     <div class="container">

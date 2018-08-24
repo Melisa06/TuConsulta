@@ -5,8 +5,6 @@
  */
 package modelo.dto;
 
-import java.util.Date;
-
 /**
  *
  * @author Windows
@@ -15,10 +13,11 @@ public class CitaDTO {
     
     private int id;
     private String fechacita;
+    private String hr_cita;
     private PacienteDTO id_paciente;
     private MedicoDTO id_medico;
     private boolean estatus;
-
+    private RecetaDTO idReceta;
     
     public int getId() {
         return id;
@@ -34,6 +33,14 @@ public class CitaDTO {
 
     public void setFechacita(String fechacita) {
         this.fechacita = fechacita;
+    }
+    
+    public String getHr_cita() {
+        return hr_cita;
+    }
+
+    public void setHr_cita(String hr_cita) {
+        this.hr_cita = hr_cita;
     }
 
     public PacienteDTO getId_paciente() {
@@ -60,8 +67,13 @@ public class CitaDTO {
         this.estatus = estatus;
     }
 
-    
+    public RecetaDTO getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(RecetaDTO idReceta) {
+        this.idReceta = idReceta;
+    }
     
 
-    
 }

@@ -18,18 +18,13 @@ import modelo.dto.UsuarioDTO;
  */
 public class UsuarioBusiness {
 
-    public static UsuarioDTO crear(String email, String password, Date fechaIngreso, boolean estatus){
-        UsuarioDTO dto = new UsuarioDTO();
+    public static UsuarioDTO crear(UsuarioDTO dto){
         UsuarioDAO dao = new UsuarioDAO();
-        dto.setEmail(email);
-        dto.setPassword(password);
-        dto.setFechaIngreso(fechaIngreso);
-        dto.setEstatus(estatus);
-
         try{
             dto = dao.create(dto);
         }
         catch(Exception ex){
+            dto = null;
             Logger.getLogger(UsuarioBusiness.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error " + ex.getMessage());
         }
@@ -50,6 +45,21 @@ public class UsuarioBusiness {
         }
          return dto;
     }
+    
+    public static boolean buscar(String email){
+        UsuarioDTO dto = new UsuarioDTO();
+        UsuarioDAO dao = new UsuarioDAO();
+        dto.setEmail(email);
+
+        try{
+            dto = dao.verificar(dto);
+        }
+        catch(Exception ex){
+            Logger.getLogger(UsuarioBusiness.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error " + ex.getMessage());
+        }
+         return false;
+    }
 
     public static List<UsuarioDTO> buscar(){
         UsuarioDAO dao = new UsuarioDAO();
@@ -65,13 +75,8 @@ public class UsuarioBusiness {
         return list;
     }
 
-    public static UsuarioDTO actualizar(String email, String password, Date fechaIngreso, boolean estatus){
-        UsuarioDTO dto = new UsuarioDTO();
+    public static UsuarioDTO actualizar(UsuarioDTO dto){
         UsuarioDAO dao = new UsuarioDAO();
-        dto.setEmail(email);
-        dto.setPassword(password);
-        dto.setFechaIngreso(fechaIngreso);
-        dto.setEstatus(estatus);
 
         try{
             dto = dao.update(dto);
