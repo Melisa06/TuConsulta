@@ -18,6 +18,7 @@ import java.util.List;
 import modelo.dto.PacienteDTO;
 import modelo.interfaz.IPaciente;
 import java.sql.Date;
+import java.sql.SQLException;
 import modelo.dao.UsuarioDAO; 
 
 public class PacienteDAO  implements IPaciente{
@@ -156,6 +157,24 @@ private final String PDW ="admin";
         throw new Exception("error al eliminar"); //To change body of generated methods, choose Tools | Templates.
         }
         }
+    public boolean validar(String nombrePaciente, String apellidoPaterno, String apellidoMaterno ) throws SQLException{
+        Connection conn = null; 
+        PreparedStatement pst = null; 
+        ResultSet rs=null;
+        conn = DriverManager.getConnection(URL, USR, PDW); 
+        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac. am_pac WHERE nombre_pac  = ?, ap_pac = ? , am_pac = ?");
+       pst.setString(1, nombrePaciente);
+       pst.setString(2, apellidoPaterno);
+       pst.setString(3, apellidoMaterno);
+       rs = pst.executeQuery(); 
+       
+       if(rs.next()){
+       return false; 
+       }
+       else{
+    return true; 
+       }
+    }
     
     
 }

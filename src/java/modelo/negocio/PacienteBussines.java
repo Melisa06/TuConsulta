@@ -101,7 +101,22 @@ public class PacienteBussines {
         return this.paciente;
     
     }
-    
-    
+  public boolean validar(String nombrePaciente, String apellidoPaterno, String apellidoMaterno ){
+      
+      try{
+          PacienteDAO dao = new PacienteDAO();
+          if(dao.validar(nombrePaciente, apellidoPaterno, apellidoMaterno)){
+          return true; 
+          }
+          else{
+          return false;
+          }
+      }
+      catch(Exception ex){
+          return false; 
+      }
+      
+  
+  }
     
 }
