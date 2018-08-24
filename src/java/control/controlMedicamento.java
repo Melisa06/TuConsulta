@@ -76,7 +76,7 @@ public class controlMedicamento extends HttpServlet {
             //enviar datos a jsp
             request.setAttribute("medicamentop", dts);
 
-            request.getRequestDispatcher("/WEB-INF/folder/medicamentosP.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/folder/listProducto.jsp").forward(request, response);
         }else if (url.equals("/borrar_medicamento")) {
             int m =Integer.parseInt(request.getParameter("n"));
             boolean status = false;
