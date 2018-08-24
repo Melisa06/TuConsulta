@@ -18,6 +18,7 @@ import java.util.List;
 import modelo.dto.PacienteDTO;
 import modelo.interfaz.IPaciente;
 import java.sql.Date;
+import java.sql.SQLException;
 import modelo.dao.UsuarioDAO; 
 
 public class PacienteDAO  implements IPaciente{
@@ -35,6 +36,7 @@ private final String PDW ="admin";
         conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyecto1", USR,PDW);
         pst = conn.prepareStatement("INERT INTO paciente (nombre_pac, ap_pac, am_pac, fech_nac, peso, alergias,estatura,tel_pac,id_us ,estatus"
                 + " )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+        
         pst.setString(1, pd.getNombrePaciente());
         pst.setString(2, pd.getApellidoPaterno());
         pst.setString(3, pd.getApellidoMaterno());
@@ -61,8 +63,9 @@ private final String PDW ="admin";
         ResultSet rs=null;
         Class.forName("org.postgresql.Driver");
         conn = DriverManager.getConnection(URL,USR,PDW);
-        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac, am_pac, , fechNac, peso, alergias,estatura,tel_pac,id_us,estatus"
+        pst = conn.prepareStatement("SELECT id,nombre_pac, ap_pac, am_pac, , fechNac, peso, alergias,estatura,tel_pac,id_us,estatus"
                 + "FROM paciente WHERE nom_pac = ? , ap_pac= ?, am_pac = ?, fech_nac = ? , id_us = ?, estatus = ?");
+        pst.setInt(1, pd.getId());
         pst.setString(1, pd.getNombrePaciente());
         pst.setString(2, pd.getApellidoPaterno());
         pst.setString(3, pd.getApellidoMaterno());
@@ -117,12 +120,21 @@ private final String PDW ="admin";
         PreparedStatement pst = null; 
         ResultSet rs = null; 
         conn = DriverManager.getConnection(URL, USR,PDW);
+<<<<<<< HEAD
         pst = conn.prepareStatement("SELECT id, nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus "
+=======
+        pst = conn.prepareStatement("SELECT id,nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus "
+>>>>>>> 35465215fd3a7529508a3d4b53ff824700bcf2f3
                 + "FROM paciente");
         rs = pst.executeQuery(); 
         while (rs.next()) {
             pd = new PacienteDTO();
+<<<<<<< HEAD
             pd.setId(rs.getInt("id"));
+=======
+            
+            pd.setId(rs.getInt("id "));
+>>>>>>> 35465215fd3a7529508a3d4b53ff824700bcf2f3
             pd.setNombrePaciente(rs.getString("nombre_pac"));
             pd.setApellidoPaterno(rs.getString("ap_pac"));
             pd.setApellidoMaterno(rs.getString("am_pac"));
@@ -156,6 +168,24 @@ private final String PDW ="admin";
         throw new Exception("error al eliminar"); //To change body of generated methods, choose Tools | Templates.
         }
         }
+    public boolean validar(String nombrePaciente, String apellidoPaterno, String apellidoMaterno ) throws SQLException{
+        Connection conn = null; 
+        PreparedStatement pst = null; 
+        ResultSet rs=null;
+        conn = DriverManager.getConnection(URL, USR, PDW); 
+        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac. am_pac WHERE nombre_pac  = ?, ap_pac = ? , am_pac = ?");
+       pst.setString(1, nombrePaciente);
+       pst.setString(2, apellidoPaterno);
+       pst.setString(3, apellidoMaterno);
+       rs = pst.executeQuery(); 
+       
+       if(rs.next()){
+       return false; 
+       }
+       else{
+    return true; 
+       }
+    }
     
     public PacienteDTO buscarId(PacienteDTO pd) throws Exception {
         Connection conn = null ; 

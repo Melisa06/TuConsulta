@@ -101,6 +101,7 @@ public class PacienteBussines {
         return this.paciente;
     
     }
+<<<<<<< HEAD
     
     public static PacienteDTO buscarId(int id){
         PacienteDTO pacientedto = new PacienteDTO(); 
@@ -116,5 +117,24 @@ public class PacienteBussines {
     }
     
     
+=======
+  public boolean validar(String nombrePaciente, String apellidoPaterno, String apellidoMaterno ){
+      
+      try{
+          PacienteDAO dao = new PacienteDAO();
+          if(dao.validar(nombrePaciente, apellidoPaterno, apellidoMaterno)){
+          return true; 
+          }
+          else{
+          return false;
+          }
+      }
+      catch(Exception ex){
+          return false; 
+      }
+      
+  
+  }
+>>>>>>> 35465215fd3a7529508a3d4b53ff824700bcf2f3
     
 }
