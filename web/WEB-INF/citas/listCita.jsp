@@ -16,50 +16,31 @@
                     <a class="btn btn-primary " href="nuevaCita">Agregar +</a>
                 </div>
                 <table class="table" class="table table-striped table-dark">
-                    <tr>
-                        <th>
-                            <span class="section-heading-upper">Folio</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Fecha y hora </span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Paciente</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Medico</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Estatus</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Opciones</span>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <span class="section-heading-upper">0001</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">6/ JUNIO / 2018 -- 10:00 am</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Juan Perez Lopez</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Ivan Camacho Garcia</span>
-                        </th>
-                        <th>
-                            <span class="section-heading-upper">Finalizada</span>
-                        </th>
-                        <th>
-                            <div class="intro-button mx-auto">
-                                <a class="btn btn-primary " href="detalleConsulta">Finalizar</a>
-                                <a class="btn btn-primary " href="nueva_receta">Crear Receta</a>
-                            </div>
-                        </th>
-                    </tr>
-                </table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha Cita</th>
+                    <th>Hora Cita</th>
+                    <th>Id Paciente</th>
+                    <th>Id Medico</th>
+                    <th>Estatus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="citas" items="${citas}">
+                    
+                <tr>
+                    <td>${citas.id}</td>
+                    <td>${citas.fechacita}</td>
+                    <td>${citas.hr_cita}</td>
+                    <td>${citas.id_paciente.id}</td>
+                    <td>${citas.id_medico.id}</td>
+                    <td>${citas.estatus}</td>
+                </tr>
+                </c:forEach>
+            </tbody>
+            
+        </table>
             </div>
         </div>
     </div>
