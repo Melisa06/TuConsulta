@@ -66,21 +66,15 @@
                             <h2 class="section-heading mb-4">
                                 <span class="section-heading-upper">Nombre:</span>
                             </h2>
-                            <input type="text" class="form-control" name="txtNombre" placeholder="Nombre" value="" >
-                            <input type="text" class="form-control" name="txtAp" placeholder="Apellido Paterno" value="" >
-                            <input type="text" class="form-control" name="txtAm" placeholder="Apellido Materno" value="" >
+                            <input type="text" class="form-control" name="txtNombre" placeholder="Nombre" value="${paciente.NombrePaciente}" >
+                            <input type="text" class="form-control" name="txtAp" placeholder="Apellido Paterno" value="${paciente.ApellidoPaterno}" >
+                            <input type="text" class="form-control" name="txtAm" placeholder="Apellido Materno" value="${paciente.ApellidoMaterno}" >
                             <br>
                             <h2 class="section-heading mb-4">
-                                <span class="section-heading-upper">Curp:</span>
+                                <span class="section-heading-upper">Fecha de nacimiento:</span>
                             </h2>
-                            <input type="text" class="form-control" name="txtCurp" placeholder="Curp" value="" >
+                            <input type="text" class="form-control" name="txtFecha" placeholder="FEcha" value="${paciente.FechNac}" >
                             <br>
-                            <br>
-                            <h2 class="section-heading mb-4">
-                                <span class="section-heading-upper">Domicilio:</span>
-                            </h2>
-
-                            <input type="text" class="form-control" name="txtDomi" placeholder="Domicilio" value="" >
                             <br>
                             <hr>
                             <h2 class="section-heading mb-4">
@@ -90,19 +84,19 @@
                                 <span class="section-heading-upper">Peso:</span>
                             </h2>
 
-                            <input type="text" class="form-control" name="txtPeso" placeholder="kg" value="" >
+                            <input type="text" class="form-control" name="txtPeso" placeholder="kg" value="${paciente.Peso}" >
                             <br>
                             <h2 class="section-heading mb-4">
                                 <span class="section-heading-upper">Estatura:</span>
                             </h2>
 
-                            <input type="text" class="form-control" name="txtEstatura" placeholder="Estatura" value="" >
+                            <input type="text" class="form-control" name="txtEstatura" placeholder="Estatura" value="${paciente.Estatura}" >
                             <br>
                             <h2 class="section-heading mb-4">
                                 <span class="section-heading-upper">Alergias:</span>
                             </h2>
 
-                            <input type="text" class="form-control" name="txtAlergia" placeholder="Indique alergias" value="" >
+                            <input type="text" class="form-control" name="txtAlergia" placeholder="Indique alergias" value="${paciente.Alergias}">
                             <br>
                             <INPUT type="Submit" value="Actualizar Datos" class="btn btn-primary btn-xl">
                             <INPUT type="button" value="Eliminar Cuenta" class="btn btn-primary btn-xl">

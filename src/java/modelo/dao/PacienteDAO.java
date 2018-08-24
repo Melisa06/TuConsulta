@@ -36,6 +36,7 @@ private final String PDW ="admin";
         conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyecto1", USR,PDW);
         pst = conn.prepareStatement("INERT INTO paciente (nombre_pac, ap_pac, am_pac, fech_nac, peso, alergias,estatura,tel_pac,id_us ,estatus"
                 + " )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+        
         pst.setString(1, pd.getNombrePaciente());
         pst.setString(2, pd.getApellidoPaterno());
         pst.setString(3, pd.getApellidoMaterno());
@@ -62,8 +63,9 @@ private final String PDW ="admin";
         ResultSet rs=null;
         Class.forName("org.postgresql.Driver");
         conn = DriverManager.getConnection(URL,USR,PDW);
-        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac, am_pac, , fechNac, peso, alergias,estatura,tel_pac,id_us,estatus"
+        pst = conn.prepareStatement("SELECT id,nombre_pac, ap_pac, am_pac, , fechNac, peso, alergias,estatura,tel_pac,id_us,estatus"
                 + "FROM paciente WHERE nom_pac = ? , ap_pac= ?, am_pac = ?, fech_nac = ? , id_us = ?, estatus = ?");
+        pst.setInt(1, pd.getId());
         pst.setString(1, pd.getNombrePaciente());
         pst.setString(2, pd.getApellidoPaterno());
         pst.setString(3, pd.getApellidoMaterno());
@@ -118,12 +120,13 @@ private final String PDW ="admin";
         PreparedStatement pst = null; 
         ResultSet rs = null; 
         conn = DriverManager.getConnection(URL, USR,PDW);
-        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus "
+        pst = conn.prepareStatement("SELECT id,nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus "
                 + "FROM paciente");
         rs = pst.executeQuery(); 
         while (rs.next()) {
             pd = new PacienteDTO();
             
+            pd.setId(rs.getInt("id "));
             pd.setNombrePaciente(rs.getString("nombre_pac"));
             pd.setApellidoPaterno(rs.getString("ap_pac"));
             pd.setApellidoMaterno(rs.getString("am_pac"));
