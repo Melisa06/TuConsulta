@@ -32,7 +32,7 @@ public class controlCitas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         url = request.getServletPath();
-        
+        //sesion.getAttribute("datos");
         switch(url){
             case "/citas":
                 List<CitaDTO> citas = CitaBussines.buscar();
@@ -45,6 +45,21 @@ public class controlCitas extends HttpServlet {
                 break;
                 
             case "/nuevaCita":
+                
+                /*AQUI TE RIFAS JERO
+                if ( lasession == "paciente"){
+                    
+                    int idPac = getSession;
+                    List<PacienteDTO> pacDTO = null;
+                    
+                    request.setAttribute("datospaciente", pacDTO);
+                    request.setAttribute("styleOcultarDoc", "true");
+                    request.getRequestDispatcher("WEB-INF/citas/createCita.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("datospaciente", pacDTO);
+                    request.setAttribute("styleOcultarDoc", "true");
+                    request.getRequestDispatcher("WEB-INF/citas/createCita.jsp").forward(request, response);
+                }*/
                 request.getRequestDispatcher("WEB-INF/citas/createCita.jsp").forward(request, response);
                 break;
         }
@@ -60,16 +75,39 @@ public class controlCitas extends HttpServlet {
         boolean estatus;
         
         switch(url){
+            
             case "/nuevaConsulta":
                  id = request.getIntHeader("txtId");
                 fechacita = request.getParameter("txtFechacita");
                 hr_cita = request.getParameter("txtHr_cita");
+                id_paciente = Integer.parseInt(request.getParameter("datosPac"));
+                id_medico = Integer.parseInt(request.getParameter("datosMed"));
                 estatus = true;
-                try {
-                    CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id), new MedicoDTO(id), Boolean.TRUE);
-                } catch (Exception ex) {
-                    Logger.getLogger(controlCitas.class.getName()).log(Level.SEVERE, null, ex);
+                 
+                if (id == 0) {
+                    //regresa
+                } else {
+                    //valida si ya existe
+                    CitaDTO cDTOB = CitaBussines.consultaExistencia(fechacita, hr_cita, id_paciente, id_medico);
+
+                    //si no existe pos lo crea
+                    if (cDTOB == null) {
+                        try {
+                            CitaDTO cita = CitaBussines.crear(id, fechacita, hr_cita, new PacienteDTO(id), new MedicoDTO(id), Boolean.TRUE);
+                        } catch (Exception ex) {
+                            Logger.getLogger(controlCitas.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } 
+                    //si ya existe pos alv
+                    else {
+                        //aqui lo que quieras regresarlo o mandarle el error :v
+                        response.sendRedirect("citas");
+                    }
+
                 }
+                
+                
+                
                 break;
         }
     }
