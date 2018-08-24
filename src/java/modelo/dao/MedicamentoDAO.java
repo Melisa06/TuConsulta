@@ -212,21 +212,20 @@ public class MedicamentoDAO  implements IMedicamento{
     }
 public boolean consultaExistencia(String nombreM){
     int Conteo=0;
-    try{Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    Class.forName("org.postgresql.Driver");
-    con = DriverManager.getConnection(URL, USER, PASSWORD);
-    pst = con.prepareStatement("Select * from medicamento where nombremedicamento = ?");
-    pst.setString(1, nombreM);
-     ResultSet result;
-     result= pst.executeQuery();
-     
-     if(result.next()){
+    try{
+        Class.forName("org.postgresql.Driver");
+        con = DriverManager.getConnection(URL, USER, PASSWORD);
+        pst = con.prepareStatement("Select * from medicamento where nombreMedicamento = ?");
+        pst.setString(1, nombreM);
+         ResultSet result;
+         result= pst.executeQuery();
+
+        if(result.next()){
             return false;
-    }
-     else{
-         return true;
-     }
-         
+        }
+        else{
+            return true;
+        }
     }
     catch (Exception ex)
     {

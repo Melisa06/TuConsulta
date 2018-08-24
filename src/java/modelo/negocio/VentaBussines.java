@@ -17,12 +17,12 @@ import modelo.dto.VentaDTO;
  * @author daniel
  */
 public class VentaBussines {
-    public static VentaDTO crear(String fechaVenta,Boolean estatusVenta){
+    public static VentaDTO crear(Boolean estatusVenta){
         
         VentaDTO v = new VentaDTO();
         VentaDAO dao = new VentaDAO();
         
-        v.setFechaVEnta(fechaVenta);
+       
         v.setStatusVenta(estatusVenta);
         try {
             v = dao.create(v);
@@ -34,7 +34,7 @@ public class VentaBussines {
         
         return v;
     }
-    
+
      public static VentaDTO buscar(int id){
         VentaDTO v = new VentaDTO();
         VentaDAO dao = new VentaDAO();
@@ -57,10 +57,10 @@ public class VentaBussines {
     }
     
     public static List<VentaDTO> buscar(){
-        List<VentaDTO> v = new ArrayList<>();
+        List<VentaDTO> venta = new ArrayList<>();
         VentaDAO dao = new VentaDAO();
         try {
-            v = dao.read();
+            venta = dao.read();
         } 
         catch (Exception ex) {
             Logger.getLogger(VentaBussines.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,7 +71,7 @@ public class VentaBussines {
                 System.out.println("Error " + ex.getMessage());
             }
         }
-        return v;
+        return venta;
     }
     
     

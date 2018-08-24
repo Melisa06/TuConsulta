@@ -9,212 +9,130 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.dto.MedicoDTO;
 import modelo.interfaz.IMedico;
-import modelo.negocio.MedicoBussines;
 
 /**
  *
  * @author lupita
  */
-public class MedicoDAO implements IMedico {
-
-    //modelo : dto,dao,interfaz,bussines
-    //Dao Acceder a los datos de bd   
-    
-    
-    String URL = "jdbc:postgresql://localhost:5432/iti40";
+public class MedicoDAO implements IMedico{
+      
+    String URL = "jdbc:postgresql://localhost:5432/TuConsulta";
     String USER = "postgres";
     String PASSWORD = "admin";
-    
+
     public Connection con = null;
     public PreparedStatement pst = null;
+
     
-     @Override
     public MedicoDTO create(MedicoDTO medico) throws Exception {
-        
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        
-        pst = con.prepareStatement("INSERT INTO medicos (nombre,apellido,curp,estatus,id) values (?,?,?,?,?)");
-        
+        pst = con.prepareStatement("INSERT INTO medico (nombre_med,ap_med,am_med,cedula_med,estatus) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         pst.setString(1, medico.getNombre());
-        pst.setString(2, medico.getApellido());
-        pst.setString(3, medico.getCurp());
-        pst.setBoolean(4, medico.isEstatus());
-        pst.setInt(5, medico.getIdPaciente().getId());
-        
-        int result = pst.executeUpdate();
-        
-        if(result > 0){
-            
-            return medico;
-        }
-        throw new Exception("No encontrado");
-    }
-    
-    @Override
-    public MedicoDTO create(MedicoDTO medico,Connection con2) throws Exception {
-        
-        Class.forName("org.postgresql.Driver");
-     //   con2 = DriverManager.getConnection(URL, USER, PASSWORD);
-        
-        pst = con2.prepareStatement("INSERT INTO medicos (usuario,paciente,apellido,curp,estatus) values (?,?,?,?,?)");
-        
-        pst.setString(1, medico.getNombre());
-        pst.setInt(2, medico.getIdPaciente().getId());
-        pst.setString(3, medico.getApellido());
-        pst.setString(4, medico.getCurp());
+        pst.setString(2, medico.getPaterno());
+        pst.setString(3, medico.getMaterno());
+        pst.setString(4, medico.getCedula());
         pst.setBoolean(5, medico.isEstatus());
-        
-        int result = pst.executeUpdate();
-        
-        if(result > 0){
+        int r = pst.executeUpdate();
+
+        if(r > 0){
+            ResultSet rs = pst.getGeneratedKeys();
+            if(rs.next())
+                medico.setId(rs.getInt(1));
             
             return medico;
         }
-        throw new Exception("No encontrado");
+        else
+            throw new Exception("No insertado");
     }
 
     
-    @Override
     public MedicoDTO read(MedicoDTO medico) throws Exception {
-    
-       // Connection con = null;
-        
-       // PreparedStatement pst = null;
-        
         Class.forName("org.postgresql.Driver");
-        
+        ResultSet rs = null;
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        
-        pst = con.prepareStatement("select nombre,apellido,curp,medicos.estatus,id From medicos Where medico like ?");      
-                       
-        pst.setString(1, medico.getNombre());
-        
-        ResultSet result = pst.executeQuery();
-                
-        if(result.next()){
-            
-            medico.setNombre(result.getString("nombre"));
-            medico.setApellido(result.getString("apellido"));
-            medico.setCurp(result.getString("curp"));
-            medico.setEstatus(result.getBoolean("estatus"));
-            //medico.setIdPaciente(PacienteBussines.buscar(result.getInt("id")));
-            
+        pst = con.prepareStatement("SELECT *FROM medico WHERE id = ?");
+        pst.setInt(1, medico.getId());
+        rs = pst.executeQuery();
+
+        if(rs.next()){
+            medico.setNombre(rs.getString("nombre_med"));
+            medico.setPaterno(rs.getString("ap_med"));
+            medico.setMaterno(rs.getString("am_med"));
+            medico.setCedula(rs.getString("cedula_med"));
+            medico.setEstatus(rs.getBoolean("estatus"));
             return medico;
         }
-        
-        throw new Exception("No encontrado");
-    }
-    
-    
-     public List<MedicoDTO> read() throws Exception {
-       //  Connection con = null;
-        
-       // PreparedStatement pst = null;
-        
-        List<MedicoDTO> medicos = new ArrayList<>();
-        
-        Class.forName("org.postgresql.Driver");
-        
-        con = DriverManager.getConnection(URL, USER, PASSWORD);
-        
-        pst = con.prepareStatement("select nombre,apellido,curp,medicos.estatus,id From medicos order by nombre asc");
-        
-        ResultSet result = pst.executeQuery();
-        
-     
-        while(result.next()){
-            
-            MedicoDTO dto = new MedicoDTO();
-            
-            dto.setNombre(result.getString("nombre"));
-            dto.setApellido(result.getString("apellido"));
-            dto.setCurp(result.getString("curp"));
-            dto.setEstatus(result.getBoolean("estatus"));
-            //dto.setIdPaciente(PacienteBussines.buscar(result.getInt("id"),con));
-            medicos.add(dto);
-            
-            
-        }
-        
-        return medicos;
-        
+        else
+            throw new Exception("No existe");
     }
 
-    @Override
+    public List<MedicoDTO> readAll() throws Exception{
+        Class.forName("org.postgresql.Driver");
+        ResultSet rs = null;
+        List<MedicoDTO> listMedicoDto = new ArrayList<>();
+        con = DriverManager.getConnection(URL, USER, PASSWORD);
+        pst = con.prepareStatement("SELECT *FROM medico");
+        rs = pst.executeQuery();
+
+        while(rs.next()){
+            MedicoDTO medico = new MedicoDTO();
+            medico.setNombre(rs.getString("nombre_med"));
+            medico.setPaterno(rs.getString("ap_med"));
+            medico.setMaterno(rs.getString("am_med"));
+            medico.setCedula(rs.getString("cedula_med"));
+            medico.setEstatus(rs.getBoolean("estatus"));
+            listMedicoDto.add(medico);
+        }
+        return listMedicoDto;
+    }
+
+    
     public MedicoDTO update(MedicoDTO medico) throws Exception {
-        
-       // Connection con = null;
-        
-       // PreparedStatement pst = null;
-        
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection(URL, USER, PASSWORD);
-        
-        MedicoDTO dto = MedicoBussines.buscar(medico.getNombre());
-        
-        //if(!dto.getPassword().equals(medico.getPassword())){
-        
-          //  pst = con.prepareStatement("UPDATE usuarios set password = MD5(?), estatus = ?, id = ? WHERE usuario like ?");
+        pst = con.prepareStatement("UPDATE medico SET nombre_med = ?, estatus = ?, id_us = ? WHERE id = ?");
+        pst.setString(1, medico.getNombre());
+        pst.setBoolean(2, medico.isEstatus());
+        pst.setInt(3, medico.getId());
 
+        int r = pst.executeUpdate();
 
-            pst.setString(1, medico.getApellido());
-            
-            pst.setString(2, medico.getCurp());
-
-            pst.setBoolean(3, medico.isEstatus());
-            
-            pst.setInt(4, medico.getIdPaciente().getId());
-
-            pst.setString(5, medico.getNombre());
-            
-            pst = con.prepareStatement("UPDATE medicos set id = ?, estatus = ? WHERE nombre like ?");
-            
-            pst.setInt(1, medico.getIdPaciente().getId());
-            
-            pst.setBoolean(2, medico.isEstatus());
-
-            pst.setString(3, medico.getNombre());
-        
-        int result = pst.executeUpdate();
-        
-        if(result > 0){
-            
+        if(r > 0){
             return medico;
         }
-        
-        throw new Exception("No encontrado");
-        
-        
+        else
+            throw new Exception("No actualizado");
+    }
+
+    
+    public MedicoDTO delete(MedicoDTO medico) throws Exception {
+        Class.forName("org.postgresql.Driver");
+        con = DriverManager.getConnection(URL, USER, PASSWORD);
+        pst = con.prepareStatement("UPDATE medico SET estatus = ? WHERE id = ?");
+        pst.setBoolean(1, medico.isEstatus());
+        pst.setInt(2, medico.getId());
+
+        int r = pst.executeUpdate();
+        if(r > 0){
+            return medico;
+        }
+        else
+            throw new Exception("No actualizado");
+    }
+
+    public List<MedicoDTO> read(List<MedicoDTO> m) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public MedicoDTO delete(MedicoDTO medico) throws Exception {
-       // Connection con = null;
-        
-       // PreparedStatement pst = null;
-        
-        Class.forName("org.postgresql.Driver");
-       
-        con = DriverManager.getConnection(URL, USER, PASSWORD);
-        
-        pst = con.prepareStatement("Update medicos set estatus = ? WHERE medico like ?");
-        
-        pst.setBoolean(1, medico.isEstatus());
-        pst.setString(2, medico.getNombre());
-        
-        int result = pst.executeUpdate();
-        
-        if(result > 0){
-            
-            return medico;
-        }
-        
-        throw new Exception("No encontrado"); 
+    public MedicoDTO create(MedicoDTO medico, Connection con) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

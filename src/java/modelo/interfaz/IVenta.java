@@ -12,8 +12,10 @@ import modelo.dto.VentaDTO;
  * @author daniel
  */
 public interface IVenta {
-    public VentaDTO create(VentaDTO vent) throws Exception;
-    public VentaDTO read(VentaDTO vent) throws Exception;
-    public VentaDTO update(VentaDTO vent) throws Exception;
-    public VentaDTO delete(VentaDTO vent) throws Exception;
+    public VentaDTO create(VentaDTO venta) throws Exception;
+    public VentaDTO read(VentaDTO venta) throws Exception;
+    public VentaDTO update(VentaDTO venta) throws Exception;
+    public VentaDTO delete(VentaDTO venta) throws Exception;
+   
+    
 }

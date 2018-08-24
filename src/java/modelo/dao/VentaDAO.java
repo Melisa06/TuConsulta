@@ -19,7 +19,7 @@ import modelo.interfaz.IVenta;
  * @author daniel
  */
 public class VentaDAO implements IVenta{
-    String URL = "jdbc:postgresql://localhost:5432/itic40";
+    String URL = "jdbc:postgresql://localhost:5432/TuConsulta";
     String USER = "postgres";
     String PASS = "admin";
 
@@ -32,9 +32,9 @@ public class VentaDAO implements IVenta{
         
         
         pst = connection.prepareStatement("INSERT INTO venta (fecha_vent,estatus"
-                + ") VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-        pst.setString(1, vent.getFechaVEnta());
-        pst.setBoolean(2, vent.isStatusVenta());
+                + ") VALUES (now(),?)", PreparedStatement.RETURN_GENERATED_KEYS);
+ 
+        pst.setBoolean(1, vent.isStatusVenta());
         int r = pst.executeUpdate();
        
         if(r > 0){
@@ -80,26 +80,33 @@ public class VentaDAO implements IVenta{
         connection = DriverManager.getConnection(URL,USER,PASS);
         List<VentaDTO> listVentaDto = new ArrayList<>();
         
-        pst = connection.prepareStatement("SELECT estatus,fecha_vent FROM venta");
+        pst = connection.prepareStatement("select venta.id, fecha_vent, sum(monto_total) as montoVenta, estatus from venta \n" +
+"inner join detalle_Venta on venta.id = detalle_Venta.id_venta\n" +
+"group by(venta.id) ");
+                    
         rs = pst.executeQuery();
-        
         try {
+            
             while(rs.next()){
-                VentaDTO vent = new VentaDTO();
-                vent.setIdVenta(rs.getInt("id"));
-                vent.setStatusVenta(rs.getBoolean("estatus"));
-                vent.setFechaVEnta(rs.getString("fecha_vent"));
-    
+                 VentaDTO venta = new VentaDTO();
+                venta.setIdVenta(rs.getInt("id"));
+                venta.setFechaVEnta(rs.getString("fecha_vent"));
+                venta.setMontoTotal(rs.getDouble("montoVenta"));
+                venta.setStatusVenta(rs.getBoolean("estatus"));
+               
+                listVentaDto.add(venta);
                 
-                listVentaDto.add(vent);
             }
             return listVentaDto;
-        }
+        } 
         catch (Exception ex) {
             throw new Exception("Error " + ex.getMessage());
         }   
+       
     }
-    @Override
+ 
+        
+       @Override
     public VentaDTO update(VentaDTO vent) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -121,5 +128,6 @@ public class VentaDAO implements IVenta{
         else
             throw new Exception("No insertado");
     }
+    
     
 }

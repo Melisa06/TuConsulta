@@ -11,16 +11,15 @@ package modelo.dto;
  */
 public class DetalleVentDTO {
 
-        private int  idProvee;
-	private String nombreProv; 
-        private String telProv;    
-	private String direccion;
-	private MedicamentoDTO idMedi;
+    
         
      private VentaDTO idVenta;
      private MedicamentoDTO idMedicamento;
      private int cant;
      private Double precioUni;
+     private Double montoTotal;
+     private Double montoRecibido;
+     
 
     public VentaDTO getIdVenta() {
         return idVenta;
@@ -69,9 +68,7 @@ public class DetalleVentDTO {
     public void setMontoRecibido(Double montoRecibido) {
         this.montoRecibido = montoRecibido;
     }
-      private Double montoTotal;
-      private Double montoRecibido;
-     
+   
      
    
 }

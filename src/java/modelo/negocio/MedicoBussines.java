@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.dao.MedicoDAO;
 import modelo.dto.MedicoDTO;
-import modelo.dto.PacienteDTO;
+import modelo.dto.UsuarioDTO;
 
 /**
  *
@@ -19,62 +19,18 @@ import modelo.dto.PacienteDTO;
  */
 public class MedicoBussines {
     
-//      public static List<MedicoDTO> crear(List<String> medico) throws SQLException{
-//    
-//            List<MedicoDTO> m = new ArrayList<MedicoDTO>();
-//            MedicoDAO dao = new MedicoDAO();
-//            
-//                String URL = "jdbc:postgresql://localhost:5432/iti40";
-//                String USER = "postgres";
-//                String PASSWORD = "admin";
-//            
-//           Connection con2 = DriverManager.getConnection(URL, USER, PASSWORD);
-//           
-//            try {
-//                con2.setAutoCommit(false);
-//            
-//                  for(int i=0;i<medico.size();i++){
-//                    MedicoDTO mdto= new MedicoDTO();
-//
-//                    mdto.setNombre(nombre.get(i));
-//                    mdto.setApellido(apellido.get(i));
-//                    mdto.setPassword(password.get(i));
-//                    mdto.setEstatus(true);
-//                    
-//                     m.add(dao.create(mdto,con2));
-//                   }
-//                
-//                 con2.commit();
-//                  
-//               // con2.close();
-//            } catch (Exception ex) {
-//                
-//                con2.rollback();
-//                
-//                Logger.getLogger(MedicoBussines.class.getName()).log(Level.SEVERE, null, ex);
-//                
-//                m = null;
-//                
-//                
-//                System.out.print("Error: "+ex.getMessage());
-//            }
-//            
-//            
-//            return m;
-//    
-//    }
-    
-     public static MedicoDTO crear(String nombre,String apellido,String curp,Boolean estatus,int id) {
+     public static MedicoDTO crear(String nombre,String paterno,String materno,String cedula,Boolean estatus,int id) {
     
             MedicoDTO m = new MedicoDTO();
             MedicoDAO dao = new MedicoDAO();
             
            
             m.setNombre(nombre);
-            m.setApellido(apellido);
-            m.setCurp(curp);
+            m.setPaterno(paterno);
+            m.setMaterno(materno);
+            m.setCedula(cedula);
             m.setEstatus(estatus);
-            m.setIdPaciente(new PacienteDTO(id));
+            m.setIdUsuario(new UsuarioDTO(id));
             
             try {
             
@@ -133,7 +89,7 @@ public class MedicoBussines {
             
             
             try {
-                m = dao.read();
+                m = dao.readAll();
             } catch (Exception ex) {
                 
                 m = null;
@@ -156,16 +112,17 @@ public class MedicoBussines {
     }
     
      
-      public static MedicoDTO actualizar(String nombre,String apellido,String curp,Boolean estatus,int paciente){
+      public static MedicoDTO actualizar(String nombre,String paterno,String materno,String cedula,Boolean estatus,int usuario){
           
             MedicoDTO m = new MedicoDTO();
             MedicoDAO dao = new MedicoDAO();
             
             m.setNombre(nombre);
-            m.setApellido(apellido);
-            m.setCurp(curp);
+            m.setPaterno(paterno);
+            m.setMaterno(materno);
+            m.setCedula(cedula);
             m.setEstatus(estatus);
-            m.setIdPaciente(new PacienteDTO(paciente));
+            m.setIdUsuario(new UsuarioDTO(usuario));
             
             try {
                 m = dao.update(m);

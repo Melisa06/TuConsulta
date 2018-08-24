@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.dto.CitaDTO;
 import modelo.dto.MedicoDTO;
 import modelo.dto.PacienteDTO;
+import modelo.negocio.MedicoBussines;
+import modelo.negocio.PacienteBussines;
 
 /**
  *
@@ -46,21 +48,14 @@ public class controlCitas extends HttpServlet {
                 
             case "/nuevaCita":
                 
-                /*AQUI TE RIFAS JERO
-                if ( lasession == "paciente"){
-                    
-                    int idPac = getSession;
-                    List<PacienteDTO> pacDTO = null;
-                    
-                    request.setAttribute("datospaciente", pacDTO);
-                    request.setAttribute("styleOcultarDoc", "true");
-                    request.getRequestDispatcher("WEB-INF/citas/createCita.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("datospaciente", pacDTO);
-                    request.setAttribute("styleOcultarDoc", "true");
-                    request.getRequestDispatcher("WEB-INF/citas/createCita.jsp").forward(request, response);
-                }*/
+                List<PacienteDTO> pacDTO = PacienteBussines.BuscarTodos();
+                List<MedicoDTO> medDTO = MedicoBussines.buscar();
+
+                request.setAttribute("datosPac", pacDTO);
+                request.setAttribute("datosMed", medDTO);
+                request.setAttribute("styleOcultarDoc", "true");
                 request.getRequestDispatcher("WEB-INF/citas/createCita.jsp").forward(request, response);
+
                 break;
         }
     }
@@ -77,16 +72,17 @@ public class controlCitas extends HttpServlet {
         switch(url){
             
             case "/nuevaConsulta":
-                 id = request.getIntHeader("txtId");
                 fechacita = request.getParameter("txtFechacita");
                 hr_cita = request.getParameter("txtHr_cita");
                 id_paciente = Integer.parseInt(request.getParameter("datosPac"));
                 id_medico = Integer.parseInt(request.getParameter("datosMed"));
                 estatus = true;
+                id = 0;
                  
-                if (id == 0) {
+                if (fechacita.isEmpty() || hr_cita.isEmpty()) {
                     //regresa
-                } else {
+                } 
+                else {
                     //valida si ya existe
                     CitaDTO cDTOB = CitaBussines.consultaExistencia(fechacita, hr_cita, id_paciente, id_medico);
 
@@ -103,11 +99,7 @@ public class controlCitas extends HttpServlet {
                         //aqui lo que quieras regresarlo o mandarle el error :v
                         response.sendRedirect("citas");
                     }
-
                 }
-                
-                
-                
                 break;
         }
     }

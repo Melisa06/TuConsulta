@@ -21,37 +21,19 @@
                 <h2 class="section-heading mb-4">
                     <span class="section-heading-upper">Nombre:</span>
                 </h2>
-                <input type="text" class="form-control" name="txtNombre" placeholder="Nombre" value="">
-                <input type="text" class="form-control" name="txtAp" placeholder="Apellido Paterno" value="">
-                <input type="text" class="form-control" name="txtAm" placeholder="Apellido Materno" value="">
+                <input type="text" class="form-control" name="txtnombre" placeholder="Nombre" value="">
+                <input type="text" class="form-control" name="txtpaterno" placeholder="Paterno" value="">
+                <input type="text" class="form-control" name="txtmaterno" placeholder="Materno" value="">
                 <br>
                 <h2 class="section-heading mb-4">
                     <span class="section-heading-upper">Cedula Professional:</span>
                 </h2>
                 <input type="text" class="form-control" name="txtCedula" value="">
                 <br>
-                <br>
-                <h2 class="section-heading mb-4">
-                    <span class="section-heading-upper">Domicilio:</span>
-                </h2>
-                <input type="text" class="form-control" name="txtDomi" value="">
-                <br>
-                <hr>
-                <h2 class="section-heading mb-4">
-                    <span class="section-heading-upper">Telefono:</span>
-                </h2>
-                <input type="text" class="form-control" name="txtTelefonoMedico" value="">
-                <br>
-                <h2 class="section-heading mb-4">
-                    <span class="section-heading-upper">Correo :</span>
-                </h2>
-                <input type="text" class="form-control" name="txtCorreoMedico" value="">
-                <br>
-                <br>
-                <INPUT type="Submit" value="Aceptar" class="btn btn-primary btn-xl">
-                <INPUT type="button" value="Cancelar" class="btn btn-primary btn-xl">
+                
+                <input type="Submit" value="Aceptar" class="btn btn-primary">
+                <input type="button" value="Cancelar" class="btn btn-primary">
             </form>
         </div>
     </div>
-</div>
 </section>

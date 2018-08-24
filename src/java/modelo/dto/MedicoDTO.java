@@ -11,13 +11,12 @@ package modelo.dto;
  */
 public class MedicoDTO {
     
-    private int id;
-
-    
+    private int id;    
     private String nombre;
-    private String apellido;
-    private String curp;
-    private PacienteDTO idPaciente;
+    private String paterno;
+    private String materno;
+    private String cedula;
+    private UsuarioDTO idUsuario;
     private boolean estatus;
 
     public MedicoDTO(){}
@@ -33,7 +32,7 @@ public class MedicoDTO {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -42,28 +41,36 @@ public class MedicoDTO {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getPaterno() {
+        return paterno;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setPaterno(String paterno) {
+        this.paterno = paterno;
     }
 
-    public String getCurp() {
-        return curp;
+    public String getMaterno() {
+        return materno;
     }
 
-    public void setCurp(String curp) {
-        this.curp = curp;
+    public void setMaterno(String materno) {
+        this.materno = materno;
     }
 
-    public PacienteDTO getIdPaciente() {
-        return idPaciente;
+    public String getCedula() {
+        return cedula;
     }
 
-    public void setIdPaciente(PacienteDTO idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public UsuarioDTO getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(UsuarioDTO idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public boolean isEstatus() {
@@ -73,7 +80,5 @@ public class MedicoDTO {
     public void setEstatus(boolean estatus) {
         this.estatus = estatus;
     }
-    
-    
     
 }

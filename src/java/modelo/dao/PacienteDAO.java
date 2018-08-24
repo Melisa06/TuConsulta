@@ -24,7 +24,7 @@ public class PacienteDAO  implements IPaciente{
     public static PacienteDTO create(int id, String nombrePaciente, String apellidoPaterno,String apellidoMaterno, Date fechNac,double peso, String alergias,double estatura , String telPaciente,UsuarioDAO usuario , boolean  estatus){
          throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-private final String URL ="jdbc:postgresql://localhost:5432/postgres";
+private final String URL ="jdbc:postgresql://localhost:5432/TuConsulta";
 private final String USR ="postgres";
 private final String PDW ="admin";
 
@@ -117,7 +117,7 @@ private final String PDW ="admin";
         PreparedStatement pst = null; 
         ResultSet rs = null; 
         conn = DriverManager.getConnection(URL, USR,PDW);
-        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus"
+        pst = conn.prepareStatement("SELECT nombre_pac, ap_pac, am_pac, fech_Nac, peso , alergias, estatura, tel_pac, id_us, estatus "
                 + "FROM paciente");
         rs = pst.executeQuery(); 
         while (rs.next()) {

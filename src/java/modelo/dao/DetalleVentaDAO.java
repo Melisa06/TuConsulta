@@ -19,7 +19,7 @@ import modelo.negocio.VentaBussines;
  * @author daniel
  */
 public class DetalleVentaDAO {
-    String URL = "jdbc:postgresql://localhost:5432/itic40";
+    String URL = "jdbc:postgresql://localhost:5432/TuConsulta";
     String USER = "postgres";
     String PASS = "admin";
     
@@ -32,13 +32,14 @@ public class DetalleVentaDAO {
         connection = DriverManager.getConnection(URL,USER,PASS);
         
         
-        pst = connection.prepareStatement("INSERT INTO detalle_venta (id_venta, id_medi,cant,precio_uni,monto_total,monto_recibido"
-                + ") VALUES (?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+        pst = connection.prepareStatement("INSERT INTO detalle_venta (id_venta, id_medi,cant,precio_uni,monto_total"
+                + ") VALUES (?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, det.getIdVenta().getIdVenta());
         pst.setInt(2, det.getIdMedicamento().getId());
         pst.setInt(3, det.getCant());
-        pst.setDouble(4, det.getMontoTotal());
-        pst.setDouble(5, det.getMontoRecibido());
+        pst.setDouble(4, det.getPrecioUni());
+        pst.setDouble(5, det.getMontoTotal());
+
         
         int r = pst.executeUpdate();
        
@@ -109,7 +110,7 @@ public class DetalleVentaDAO {
             throw new Exception("Error " + ex.getMessage());
         }   
     }
+ 
     
-
     
 }
