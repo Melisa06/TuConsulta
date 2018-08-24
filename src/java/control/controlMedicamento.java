@@ -1,4 +1,4 @@
-/*
+﻿
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -45,7 +45,7 @@ import sun.misc.BASE64Decoder;
  *
  * @author Jhazmin Alvarez
  */
-@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento"})
+@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento","/medicamentopaciente","/activar_medicamento"})
 public class controlMedicamento extends HttpServlet {
 
     @Override
@@ -69,7 +69,14 @@ public class controlMedicamento extends HttpServlet {
              request.setAttribute("oculto", "visibility:hidden");
             request.getRequestDispatcher("/WEB-INF/productos/createProducto.jsp").forward(request, response);
            
-        } else if (url.equals("/borrar_medicamento")) {
+        }else if( (url.equalsIgnoreCase("/medicamentopaciente"))){
+           List<MedicamentoDTO> dts = MedicamentoBussines.buscarP();
+
+            //enviar datos a jsp
+            request.setAttribute("medicamentop", dts);
+
+            request.getRequestDispatcher("/WEB-INF/folder/medicamentosP.jsp").forward(request, response);
+        }else if (url.equals("/borrar_medicamento")) {
             int m =Integer.parseInt(request.getParameter("n"));
             boolean status = false;
             MedicamentoDTO dto = MedicamentoBussines.eliminar(m,status);

@@ -140,8 +140,46 @@ public class MedicamentoBussines {
             return u;
     
     } 
-
-   
+public static MedicamentoDTO activar(int m, boolean status) {
+       MedicamentoDTO u = new MedicamentoDTO();
+            MedicamentoDAO dao = new MedicamentoDAO();
+            
+            u.setId(m);
+            u.setEstatus(status);
+           
+            
+            try {
+                u = dao.activar(u);
+            } catch (Exception ex) {
+                Logger.getLogger(MedicamentoBussines.class.getName()).log(Level.SEVERE, null, ex);
+                u = null;
+                System.out.print("Error: "+ex.getMessage());
+            }
+            
+            return u;    
+    }
+ public static List<MedicamentoDTO> buscarP(){
+    
+            List<MedicamentoDTO> u ;
+            MedicamentoDAO dao = new MedicamentoDAO();
+            
+            try {
+              
+                u = dao.readP();
+                
+            } catch (Exception ex) {
+                
+                u = null;
+                
+                Logger.getLogger(MedicamentoBussines.class.getName()).log(Level.SEVERE, null, ex);
+                
+                System.out.print("Error: "+ex.getMessage());
+                
+            }
+            
+            return u;
+    
+    }  
     
 }
 

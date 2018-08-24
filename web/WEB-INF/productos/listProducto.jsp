@@ -46,8 +46,15 @@
                                         <td><img src ="medicamentos_imagenes/${medicamentos.id}.png" width="50" height="40"></td>
                                         <td>${medicamentos.estatus}</td>
                                         <td>
+
+                                              <c:if test='${medicamentos.estatus == true}'>
                                             <input class="btn btn-warning btn-sm" type="submit" value="Eliminar" name="btnBorrar"
                                                    onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';"/>
+                                               </c:if>
+                                                <c:if test='${medicamentos.estatus == false}'>
+                                                <input class="btn btn-warning btn-sm" type="submit" value="Eliminar" name="btnBorrar"
+                                                   onClick="document.location = 'activar_medicamento?n=${medicamentos.id}';"/>
+                                               </c:if>
                                             <input class="btn btn-success btn-sm" type="submit" value="Actualizar" name="btnActualizar"
                                                    onClick="document.location = 'editar_medicamento?n=${medicamentos.id}';"/>
                                         </td>
