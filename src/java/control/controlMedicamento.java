@@ -150,7 +150,8 @@ public class controlMedicamento extends HttpServlet {
             estatus = true;
 
             System.out.print("IMG : " + nombreAnterior);
-           
+MedicamentoDTO dto1 = MedicamentoBussines.consultarExistencia(nombreM);
+   if (dto1 != null) {       
             if (request.getParameter("img64").isEmpty() == false && request.getParameter("img64").equals("")== false)  {
                 //borrarImg(...,nombreAnterior);
                 crearImg(request.getParameter("img64"),""+id+"");
@@ -169,6 +170,9 @@ public class controlMedicamento extends HttpServlet {
                     //Falla
                     response.sendRedirect("editar_medicamento?n=" + id);
                 }
+}
+}else {
+                response.sendRedirect("editar_medicamento");
 
             }
         }else if (url.equals("/borrar_medicamento")) {
