@@ -45,7 +45,7 @@ import sun.misc.BASE64Decoder;
  *
  * @author Jhazmin Alvarez
  */
-@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento","/medicamentopaciente","/activar_medicamento"})
+@WebServlet(name = "controlMedicamento", urlPatterns = {"/medicamento", "/nuevo_medicamento", "/borrar_medicamento", "/editar_medicamento","/medicamentopaciente","/activar_medicamento","/ver_medicamento"})
 public class controlMedicamento extends HttpServlet {
  String ruta="C:/Users/hp/Documents/NetBeansProjects/medicamento/medicamento/web/medicamento_imagenes/";
     @Override
@@ -96,6 +96,18 @@ public class controlMedicamento extends HttpServlet {
 
             request.setAttribute("textoboton", "Actualizar");
             request.getRequestDispatcher("/WEB-INF/productos/createProducto.jsp").forward(request, response);
+        }
+         else if (url.equals("/ver_medicamento")) {
+            MedicamentoDTO dto = MedicamentoBussines.buscar(Integer.parseInt(request.getParameter("n")));
+            
+            request.setAttribute("dato", dto);
+           
+
+            request.setAttribute("titulo", "Detalles del medicamento");
+
+       
+
+            request.getRequestDispatcher("/WEB-INF/folder/detailsProducto.jsp").forward(request, response);
         }
     }
 
