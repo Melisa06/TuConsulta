@@ -120,7 +120,8 @@ public class controlMedicamento extends HttpServlet {
 //             fechaActualizacion=request.getParameter("txtfecha");
 
             System.out.print("IMG : " + request.getParameter("img64"));
-
+             MedicamentoDTO dto1 = MedicamentoBussines.consultarExistencia(nombreM);
+            if (dto1 != null) {
            
             if (nombreM.isEmpty() || descripcion.isEmpty()) {
 
@@ -131,6 +132,10 @@ public class controlMedicamento extends HttpServlet {
                 MedicamentoDTO dto = MedicamentoBussines.crear(nombreM, descripcion, stock, precio, estatus);
                   crearImg(request.getParameter("img64"),dto.getId()+"");
                 response.sendRedirect("medicamento");
+            }
+            else {
+                response.sendRedirect("nuevo_medicamento");
+
             }
         } else if (url.equals("/editar_medicamento")) {
             int id;
