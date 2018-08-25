@@ -17,7 +17,6 @@
                         <a href="nuevo_medicamento">
                             <input type="submit" class="btn btn-success btn-sm" value="Nuevo medicamento" name="btnNuevo"
                                    onClick="document.location = 'nuevo_medicamento';"/>
-
                         </a>
                         <br><br>
                         <table class="table">
@@ -46,15 +45,14 @@
                                         <td><img src ="medicamentos_imagenes/${medicamentos.id}.png" width="50" height="40"></td>
                                         <td>${medicamentos.estatus}</td>
                                         <td>
-
-                                              <c:if test='${medicamentos.estatus == true}'>
-                                            <input class="btn btn-warning btn-sm" type="submit" value="Eliminar" name="btnBorrar"
-                                                   onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';"/>
-                                               </c:if>
-                                                <c:if test='${medicamentos.estatus == false}'>
+                                            <c:if test='${medicamentos.estatus == true}'>
                                                 <input class="btn btn-warning btn-sm" type="submit" value="Eliminar" name="btnBorrar"
-                                                   onClick="document.location = 'activar_medicamento?n=${medicamentos.id}';"/>
-                                               </c:if>
+                                                       onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';"/>
+                                            </c:if>
+                                            <c:if test='${medicamentos.estatus == false}'>
+                                                <input class="btn btn-warning btn-sm" type="submit" value="Eliminar" name="btnBorrar"
+                                                       onClick="document.location = 'activar_medicamento?n=${medicamentos.id}';"/>
+                                            </c:if>
                                             <input class="btn btn-success btn-sm" type="submit" value="Actualizar" name="btnActualizar"
                                                    onClick="document.location = 'editar_medicamento?n=${medicamentos.id}';"/>
                                         </td>
@@ -68,52 +66,34 @@
         </div>
     </div>
 </section>
-<<<<<<< HEAD
 
-<div class="row text-center">
-
+<c:if test = "<%= rol == 2%>">
+    <div class="row text-center">
       <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card">
-          <c:forEach var="medicamentos" items="${medicamento}">
-            <img src ="medicamento_imagenes/${medicamentos.id}.png" width="50" height="40">
-                
-          <div class="card-body">
-            <h4 class="card-title"><td>${medicamentos.nombreMedicamento}</td></h4>
-            <p class="card-text">Clave: ${medicamentos.id}</p>
-            <p class="card-text">${medicamentos.descripcion}</p>
-            <p class="card-text">${medicamentos.fechaActualizacion}</p>
-             <p class="card-text">Disponibles: ${medicamentos.stock} pzas</p>
-               <p class="card-text">Precio sugerido :$ ${medicamentos.precio}</p>
-           
+          <div class="card">
+              <c:forEach var="medicamentos" items="${medicamento}">
+                  <img src ="medicamentos_imagenes/${medicamentos.id}.png" width="50" height="40">
+                  <div class="card-body">
+                      <h4 class="card-title"><td>${medicamentos.nombreMedicamento}</td></h4>
+                      <p class="card-text">Clave: ${medicamentos.id}</p>
+                      <p class="card-text">${medicamentos.descripcion}</p>
+                      <p class="card-text">${medicamentos.fechaActualizacion}</p>
+                      <p class="card-text">Disponibles: ${medicamentos.stock} pzas</p>
+                      <p class="card-text">Precio sugerido :$ ${medicamentos.precio}</p>
+                  </div>
+                  <div class="card-footer">
+                      <c:if test='${medicamentos.estatus == true}'>
+                          <a href="#" class="btn btn-primary"  name="btnActivar"  onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';">Eliminar</a>
+                      </c:if>
+                      <c:if test='${medicamentos.estatus == false}'>
+                          <a href="#" class="btn btn-primary"  name="btnActivar"  onClick="document.location = 'activar_medicamento?n=${medicamentos.id}';">Acivar</a>
+                      </c:if>
+                      <a href="#" class="btn btn-primary"  name="btnActualizar" onClick="document.location = 'editar_medicamento?n=${medicamentos.id}';">Actualizar</a>
+                  </c:forEach>
+              </div>
           </div>
-          <div class="card-footer">
-<c:if test='${medicamentos.estatus == true}'>
-                                
-                                <a href="#" class="btn btn-primary"  name="btnActivar"  onClick="document.location = 'borrar_medicamento?n=${medicamentos.id}';">Eliminar</a>
-                            </c:if>
-                             <c:if test='${medicamentos.estatus == false}'>
-                               <a href="#" class="btn btn-primary"  name="btnActivar"  onClick="document.location = 'activar_medicamento?n=${medicamentos.id}';">Acivar</a>
+      </div>
+    </div> 
+</c:if>
 
-                                 
-                             </c:if>
-                      
-   <a href="#" class="btn btn-primary"  name="btnActualizar" onClick="document.location = 'editar_medicamento?n=${medicamentos.id}';">Actualizar</a>
 
-                            
-                        
-                  
-                    
-                </c:forEach>
-
-          
-          
-          </div>
-        </div>
-     </div>
-</c:forEach>
-
-   
-
-</div>
-=======
->>>>>>> 7d24ba15b77c251c10d3453b8257027ff0a2ec1a
