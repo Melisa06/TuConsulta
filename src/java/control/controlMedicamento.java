@@ -160,8 +160,28 @@ public class controlMedicamento extends HttpServlet {
             precio = Float.parseFloat(request.getParameter("txtprecio"));
             imagen = request.getParameter("imagen");
             estatus = true;
+if (nombreM == nombreAnterior){
+       if (request.getParameter("img64").isEmpty() == false && request.getParameter("img64").equals("") == false) {
+                //borrarImg(...,nombreAnterior);
+                crearImg(request.getParameter("img64"), "" + id + "");
+            }
+            if (nombreM.isEmpty() || descripcion.isEmpty()) {
 
-            System.out.print("IMG : " + nombreAnterior);
+                response.sendRedirect("editar_medicamento");
+            } else {
+
+                MedicamentoDTO dto = MedicamentoBussines.update(id, nombreM, descripcion, stock, precio);
+
+                if (dto != null) {
+                    //Inserción exitosa
+                    response.sendRedirect("medicamento");
+                } else {
+                    //Falla
+                    response.sendRedirect("editar_medicamento?n=" + id);
+                }
+
+            }
+   }else{
 MedicamentoDTO dto1 = MedicamentoBussines.consultarExistencia(nombreM);
    if (dto1 != null) {       
             if (request.getParameter("img64").isEmpty() == false && request.getParameter("img64").equals("")== false)  {
@@ -186,7 +206,7 @@ MedicamentoDTO dto1 = MedicamentoBussines.consultarExistencia(nombreM);
 }else {
                 response.sendRedirect("editar_medicamento");
 
-            }
+            }}
         }else if (url.equals("/borrar_medicamento")) {
             int n =Integer.parseInt(request.getParameter("n"));
            

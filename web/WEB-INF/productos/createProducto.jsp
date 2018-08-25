@@ -83,7 +83,7 @@
                             Nombre:
                             <input class="form-control" type="text" name="txtnombre" value="${dato.nombreMedicamento}" ${disponibilidad1}>
 
-                            <input class="form-control" type="hidden" name="txtNombreAnterior" value="${dto.nombreAnterior}">
+                            <input type="hidden" name="txtNombreAnterior" value="${dato.nombreMedicamento}">
 
                             <br>
                             Descripcion:
